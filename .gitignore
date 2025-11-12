@@ -70,6 +70,11 @@ web_modules/
 .env.*
 !.env.example
 
+# Solana Wallet Keys - NEVER COMMIT!
+# These contain private keys that control your tokens and funds
+id.json
+*.keypair
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache

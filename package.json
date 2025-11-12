@@ -1,0 +1,20 @@
+{
+  "name": "gor-token-metadata",
+  "version": "1.0.0",
+  "description": "Add metadata to GOR SPL token",
+  "scripts": {
+    "add-metadata": "node add-token-metadata.js"
+  },
+  "dependencies": {
+    "@metaplex-foundation/js": "^0.20.1",
+    "@metaplex-foundation/mpl-token-metadata": "^3.2.1",
+    "@metaplex-foundation/umi": "^1.4.1",
+    "@metaplex-foundation/umi-bundle-defaults": "^1.4.1",
+    "@solana/web3.js": "^1.95.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}

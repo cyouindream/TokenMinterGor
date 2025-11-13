@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
 import TokenCreationForm from "@/components/TokenCreationForm";
 import TokenGallery from "@/components/TokenGallery";
+import WalletButton from "@/components/WalletButton";
 
 export default function Home() {
   const { connected } = useWallet();
@@ -31,7 +31,7 @@ export default function Home() {
               <div className="text-sm text-purple-200 opacity-50">
                 | Coming Soon: <span className="text-yellow-300">$GOR Chain</span>
               </div>
-              <WalletMultiButton />
+              <WalletButton />
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function Home() {
                   Connect your Solana wallet to start creating SPL tokens
                 </p>
                 <div className="flex justify-center">
-                  <WalletMultiButton />
+                  <WalletButton />
                 </div>
               </div>
             ) : (

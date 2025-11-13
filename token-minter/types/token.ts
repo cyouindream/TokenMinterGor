@@ -24,9 +24,21 @@ export interface TokenCreationRequest {
   network: "devnet" | "mainnet-beta" | "gor";
 }
 
+export interface TransactionDetails {
+  fromWallet: string;
+  toWallet: string;
+  serviceFee: number; // in SOL
+  networkFee: number; // in SOL (gas fees)
+  totalCost: number; // in SOL
+  balanceBefore: number; // in SOL
+  balanceAfter: number; // in SOL
+  signature: string;
+}
+
 export interface TokenCreationResponse {
   success: boolean;
   token?: CreatedToken;
   error?: string;
   signature?: string;
+  transactionDetails?: TransactionDetails;
 }

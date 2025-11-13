@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
-import { TokenMetadata } from "@/types/token";
+import { TokenMetadata, CreatedToken, TransactionDetails } from "@/types/token";
 import { createToken } from "@/lib/tokenService";
+import TokenSuccessModal from "./TokenSuccessModal";
 
 export default function TokenCreationForm() {
   const { publicKey, signTransaction } = useWallet();
@@ -21,12 +22,13 @@ export default function TokenCreationForm() {
 
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [createdToken, setCreatedToken] = useState<CreatedToken | null>(null);
+  const [transactionDetails, setTransactionDetails] = useState<TransactionDetails | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    setSuccess(null);
 
     if (!publicKey || !signTransaction) {
       setError("Please connect your wallet first");
@@ -54,10 +56,12 @@ export default function TokenCreationForm() {
         formData
       );
 
-      if (result.success && result.token) {
-        setSuccess(
-          `Token created successfully! Mint Address: ${result.token.mintAddress}`
-        );
+      if (result.success && result.token && result.transactionDetails) {
+        // Store token and transaction details
+        setCreatedToken(result.token);
+        setTransactionDetails(result.transactionDetails);
+        setShowSuccessModal(true);
+
         // Reset form
         setFormData({
           name: "",
@@ -79,6 +83,12 @@ export default function TokenCreationForm() {
     } finally {
       setIsCreating(false);
     }
+  };
+
+  const handleCloseModal = () => {
+    setShowSuccessModal(false);
+    setCreatedToken(null);
+    setTransactionDetails(null);
   };
 
   return (
@@ -233,13 +243,6 @@ export default function TokenCreationForm() {
           </div>
         )}
 
-        {/* Success Message */}
-        {success && (
-          <div className="bg-green-500/20 border border-green-500 rounded-lg p-4 text-green-200">
-            {success}
-          </div>
-        )}
-
         {/* Submit Button */}
         <button
           type="submit"
@@ -249,6 +252,15 @@ export default function TokenCreationForm() {
           {isCreating ? "Creating Token..." : "Create Token (0.03 SOL)"}
         </button>
       </form>
+
+      {/* Success Modal */}
+      {showSuccessModal && createdToken && transactionDetails && (
+        <TokenSuccessModal
+          token={createdToken}
+          transactionDetails={transactionDetails}
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 }

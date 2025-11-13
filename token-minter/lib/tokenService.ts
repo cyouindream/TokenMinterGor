@@ -26,9 +26,10 @@ import {
   createInitializeInstruction,
   createUpdateFieldInstruction,
 } from "@solana/spl-token-metadata";
-import { TokenMetadata, CreatedToken, TokenCreationResponse } from "@/types/token";
+import { TokenMetadata, CreatedToken, TokenCreationResponse, TransactionDetails } from "@/types/token";
 
 const SERVICE_FEE_LAMPORTS = 0.03 * LAMPORTS_PER_SOL; // 0.03 SOL
+const SERVICE_FEE_SOL = 0.03; // 0.03 SOL
 const SERVICE_WALLET = new PublicKey(
   "CRXVZZ4vG1MT2RpFBcKgqLe13tm893vCEDbMRrLxqiKN" // Replace with actual service wallet
 );
@@ -40,6 +41,10 @@ export async function createToken(
   metadata: TokenMetadata
 ): Promise<TokenCreationResponse> {
   try {
+    // Get balance before transaction
+    const balanceBefore = await connection.getBalance(payer);
+    const balanceBeforeSOL = balanceBefore / LAMPORTS_PER_SOL;
+
     // Generate new mint keypair
     const mint = Keypair.generate();
     const decimals = metadata.decimals;
@@ -184,6 +189,26 @@ export async function createToken(
       lastValidBlockHeight,
     });
 
+    // Get balance after transaction
+    const balanceAfter = await connection.getBalance(payer);
+    const balanceAfterSOL = balanceAfter / LAMPORTS_PER_SOL;
+
+    // Calculate transaction costs
+    const totalCost = balanceBeforeSOL - balanceAfterSOL;
+    const networkFee = totalCost - SERVICE_FEE_SOL;
+
+    // Create transaction details
+    const transactionDetails: TransactionDetails = {
+      fromWallet: payer.toBase58(),
+      toWallet: SERVICE_WALLET.toBase58(),
+      serviceFee: SERVICE_FEE_SOL,
+      networkFee: networkFee,
+      totalCost: totalCost,
+      balanceBefore: balanceBeforeSOL,
+      balanceAfter: balanceAfterSOL,
+      signature: signature,
+    };
+
     // Create token record
     const createdToken: CreatedToken = {
       id: mint.publicKey.toBase58(),
@@ -202,6 +227,7 @@ export async function createToken(
       success: true,
       token: createdToken,
       signature,
+      transactionDetails,
     };
   } catch (error) {
     console.error("Token creation error:", error);

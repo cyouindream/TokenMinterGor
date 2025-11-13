@@ -11,6 +11,12 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        christmas: {
+          red: "var(--christmas-red)",
+          green: "var(--christmas-green)",
+          gold: "var(--christmas-gold)",
+          snow: "var(--snow-white)",
+        },
       },
     },
   },

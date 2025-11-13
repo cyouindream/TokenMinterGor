@@ -10,7 +10,6 @@ import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
-  TorusWalletAdapter,
   LedgerWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
@@ -25,16 +24,26 @@ interface WalletContextProviderProps {
 export const WalletContextProvider: FC<WalletContextProviderProps> = ({
   children,
 }) => {
-  // Use devnet for development
-  const network = WalletAdapterNetwork.Devnet;
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  // Get network from environment variable, default to devnet
+  const networkEnv = process.env.NEXT_PUBLIC_SOLANA_NETWORK || 'devnet';
+  const network = networkEnv === 'mainnet-beta'
+    ? WalletAdapterNetwork.Mainnet
+    : networkEnv === 'testnet'
+      ? WalletAdapterNetwork.Testnet
+      : WalletAdapterNetwork.Devnet;
+
+  // Use custom RPC URL if provided, otherwise use default cluster URL
+  const endpoint = useMemo(() => {
+    const customRpcUrl = process.env.NEXT_PUBLIC_RPC_URL;
+    return customRpcUrl || clusterApiUrl(network);
+  }, [network]);
 
   // Initialize all the wallets you want to support
+  // Removed TorusWalletAdapter to fix duplicate MetaMask key error
   const wallets = useMemo(
     () => [
       new PhantomWalletAdapter(),
       new SolflareWalletAdapter(),
-      new TorusWalletAdapter(),
       new LedgerWalletAdapter(),
     ],
     []

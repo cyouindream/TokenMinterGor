@@ -5,12 +5,20 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --christmas-red: #DC2626;
+  --christmas-green: #059669;
+  --christmas-gold: #D97706;
+  --snow-white: #F8FAFC;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f1e13;
+    --foreground: #F1F5F9;
+    --christmas-red: #EF4444;
+    --christmas-green: #10B981;
+    --christmas-gold: #F59E0B;
+    --snow-white: #FFFFFF;
   }
 }
 
@@ -26,16 +34,20 @@ body {
   }
 }
 
-/* Wallet adapter styles */
+/* Wallet adapter styles - Christmas Theme */
 .wallet-adapter-button {
-  background-color: #512da8 !important;
+  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important;
   border-radius: 8px !important;
   padding: 12px 24px !important;
   font-weight: 600 !important;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
+  transition: all 0.3s ease !important;
 }
 
 .wallet-adapter-button:hover {
-  background-color: #673ab7 !important;
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4) !important;
+  transform: translateY(-2px) !important;
 }
 
 .wallet-adapter-modal-wrapper {

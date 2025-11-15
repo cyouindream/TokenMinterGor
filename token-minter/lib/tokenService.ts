@@ -30,8 +30,13 @@ import { TokenMetadata, CreatedToken, TokenCreationResponse, TransactionDetails 
 
 const SERVICE_FEE_LAMPORTS = 0.03 * LAMPORTS_PER_SOL; // 0.03 SOL
 const SERVICE_FEE_SOL = 0.03; // 0.03 SOL
+
+// Service wallet address from environment variable
+if (!process.env.NEXT_PUBLIC_SERVICE_WALLET) {
+  throw new Error("NEXT_PUBLIC_SERVICE_WALLET is not configured");
+}
 const SERVICE_WALLET = new PublicKey(
-  "CRXVZZ4vG1MT2RpFBcKgqLe13tm893vCEDbMRrLxqiKN" // Replace with actual service wallet
+  process.env.NEXT_PUBLIC_SERVICE_WALLET
 );
 
 export async function createToken(

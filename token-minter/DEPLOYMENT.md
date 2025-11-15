@@ -81,17 +81,41 @@ git push -u origin main
 
 ## Environment Configuration
 
+### Required Environment Variables
+
+Create a `.env.local` file in the `token-minter` directory with the following variables:
+
+```bash
+# Solana Network (devnet, testnet, or mainnet-beta)
+NEXT_PUBLIC_SOLANA_NETWORK=devnet
+
+# Service Wallet Address (receives token creation fees)
+NEXT_PUBLIC_SERVICE_WALLET=YOUR_WALLET_ADDRESS_HERE
+
+# Token Creation Fee (in SOL)
+NEXT_PUBLIC_CREATION_FEE=0.03
+
+# Cloudflare R2 Storage (for token icons)
+CLOUDFLARE_ACCOUNT_ID=your_account_id
+CLOUDFLARE_ACCESS_KEY_ID=your_access_key_id
+CLOUDFLARE_SECRET_ACCESS_KEY=your_secret_access_key
+CLOUDFLARE_S3_ENDPOINT=https://your_account_id.r2.cloudflarestorage.com
+CLOUDFLARE_PUBLIC_URL=https://your_public_url
+CLOUDFLARE_BUCKET_NAME=your_bucket_name
+```
+
+**Important Security Notes:**
+- Cloudflare R2 credentials are server-side only and will NOT be exposed to clients
+- `NEXT_PUBLIC_SERVICE_WALLET` will be visible in client-side code (this is expected)
+- Never commit `.env.local` to version control
+
 ### Network Selection
 
 By default, the app uses Solana Devnet. To switch to Mainnet:
 
-1. Edit `components/WalletContextProvider.tsx`:
-```typescript
-// Change this line
-const network = WalletAdapterNetwork.Devnet;
-
-// To this
-const network = WalletAdapterNetwork.Mainnet;
+1. Set the environment variable:
+```bash
+NEXT_PUBLIC_SOLANA_NETWORK=mainnet-beta
 ```
 
 2. Rebuild and redeploy.
@@ -100,14 +124,14 @@ const network = WalletAdapterNetwork.Mainnet;
 
 To change the service fee recipient wallet:
 
-1. Edit `lib/tokenService.ts`:
-```typescript
-const SERVICE_WALLET = new PublicKey(
-  "YOUR_WALLET_ADDRESS_HERE"
-);
+1. Set the `NEXT_PUBLIC_SERVICE_WALLET` environment variable:
+```bash
+NEXT_PUBLIC_SERVICE_WALLET=YOUR_WALLET_ADDRESS_HERE
 ```
 
 2. Rebuild and redeploy.
+
+**Note:** This address will be visible in the client-side code as it's used to construct transactions in the browser.
 
 ### Fee Amount
 

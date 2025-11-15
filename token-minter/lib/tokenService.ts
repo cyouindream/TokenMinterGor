@@ -28,8 +28,12 @@ import {
 } from "@solana/spl-token-metadata";
 import { TokenMetadata, CreatedToken, TokenCreationResponse, TransactionDetails } from "@/types/token";
 
-const SERVICE_FEE_LAMPORTS = 0.03 * LAMPORTS_PER_SOL; // 0.03 SOL
-const SERVICE_FEE_SOL = 0.03; // 0.03 SOL
+// Service fee from environment variable
+if (!process.env.NEXT_PUBLIC_CREATION_FEE) {
+  throw new Error("NEXT_PUBLIC_CREATION_FEE is not configured");
+}
+const SERVICE_FEE_SOL = parseFloat(process.env.NEXT_PUBLIC_CREATION_FEE);
+const SERVICE_FEE_LAMPORTS = SERVICE_FEE_SOL * LAMPORTS_PER_SOL;
 
 // Service wallet address from environment variable
 if (!process.env.NEXT_PUBLIC_SERVICE_WALLET) {

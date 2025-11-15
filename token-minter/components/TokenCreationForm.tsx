@@ -25,6 +25,67 @@ export default function TokenCreationForm() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [createdToken, setCreatedToken] = useState<CreatedToken | null>(null);
   const [transactionDetails, setTransactionDetails] = useState<TransactionDetails | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      setError("File size must be less than 5MB");
+      return;
+    }
+
+    // Validate file type
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      setError("File must be an image (JPEG, PNG, GIF, or WebP)");
+      return;
+    }
+
+    setSelectedFile(file);
+    setError(null);
+
+    // Create preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+
+    // Upload file immediately
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setFormData((prev) => ({ ...prev, imageUrl: data.imageUrl }));
+      } else {
+        setError(data.error || "Failed to upload image");
+        setSelectedFile(null);
+        setImagePreview(null);
+      }
+    } catch (err) {
+      console.error("Upload error:", err);
+      setError("Failed to upload image");
+      setSelectedFile(null);
+      setImagePreview(null);
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,6 +133,8 @@ export default function TokenCreationForm() {
           imageUrl: "",
           mintable: false,
         });
+        setSelectedFile(null);
+        setImagePreview(null);
       } else {
         setError(result.error || "Failed to create token");
       }
@@ -190,20 +253,35 @@ export default function TokenCreationForm() {
           </div>
         </div>
 
-        {/* Image URL */}
+        {/* Token Icon Upload */}
         <div>
           <label className="block text-emerald-100 font-semibold mb-2">
-            Image URL (Optional)
+            Token Icon (Optional)
           </label>
-          <input
-            type="url"
-            value={formData.imageUrl}
-            onChange={(e) =>
-              setFormData({ ...formData, imageUrl: e.target.value })
-            }
-            placeholder="https://example.com/token-logo.png"
-            className="w-full px-4 py-3 bg-emerald-950/50 border border-emerald-700 rounded-lg text-emerald-100 placeholder-emerald-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all"
-          />
+          <div className="space-y-3">
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/gif,image/webp"
+              onChange={handleFileChange}
+              disabled={isUploading}
+              className="w-full px-4 py-3 bg-emerald-950/50 border border-emerald-700 rounded-lg text-emerald-100 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-600 file:text-white hover:file:bg-red-700 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            />
+            {imagePreview && (
+              <div className="relative w-32 h-32 rounded-lg overflow-hidden border-2 border-amber-500/50">
+                <img
+                  src={imagePreview}
+                  alt="Token icon preview"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+            {isUploading && (
+              <p className="text-amber-400 text-sm">Uploading image...</p>
+            )}
+          </div>
+          <p className="text-emerald-400 text-sm mt-1">
+            Max 5MB, JPEG, PNG, GIF, or WebP
+          </p>
         </div>
 
         {/* Mintable Option */}

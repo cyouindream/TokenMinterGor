@@ -5,20 +5,20 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --christmas-red: #DC2626;
-  --christmas-green: #059669;
-  --christmas-gold: #D97706;
-  --snow-white: #F8FAFC;
+  --pastel-pink: #F8B4D9;
+  --pastel-mint: #B4E7CE;
+  --pastel-peach: #FFD4B2;
+  --pastel-lavender: #E5D4FF;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f1e13;
+    --background: #1a1d28;
     --foreground: #F1F5F9;
-    --christmas-red: #EF4444;
-    --christmas-green: #10B981;
-    --christmas-gold: #F59E0B;
-    --snow-white: #FFFFFF;
+    --pastel-pink: #D4A5C0;
+    --pastel-mint: #A8D5BA;
+    --pastel-peach: #E8C4A0;
+    --pastel-lavender: #C8B8E0;
   }
 }
 
@@ -34,19 +34,19 @@ body {
   }
 }
 
-/* Wallet adapter styles - Christmas Theme */
+/* Wallet adapter styles - Pastel Theme */
 .wallet-adapter-button {
-  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important;
+  background: linear-gradient(135deg, #D4A5C0 0%, #A8D5BA 100%) !important;
   border-radius: 8px !important;
   padding: 12px 24px !important;
   font-weight: 600 !important;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(212, 165, 192, 0.3) !important;
   transition: all 0.3s ease !important;
 }
 
 .wallet-adapter-button:hover {
-  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
-  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4) !important;
+  background: linear-gradient(135deg, #E5B5D0 0%, #B8E5CA 100%) !important;
+  box-shadow: 0 6px 16px rgba(229, 181, 208, 0.4) !important;
   transform: translateY(-2px) !important;
 }
 

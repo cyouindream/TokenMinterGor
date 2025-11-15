@@ -93,13 +93,25 @@ token-minter/
 
 ## Environment Variables
 
-No environment variables required for basic operation. The app uses Solana Devnet by default.
+Create a `.env.local` file for configuration:
 
-To use mainnet, update the network in `components/WalletContextProvider.tsx`:
+```bash
+# Required for production
+NEXT_PUBLIC_SERVICE_WALLET=YOUR_WALLET_ADDRESS_HERE
 
-```typescript
-const network = WalletAdapterNetwork.Mainnet;
+# Optional (defaults to devnet)
+NEXT_PUBLIC_SOLANA_NETWORK=devnet
+
+# Cloudflare R2 for token icons (server-side only)
+CLOUDFLARE_ACCOUNT_ID=your_account_id
+CLOUDFLARE_ACCESS_KEY_ID=your_access_key_id
+CLOUDFLARE_SECRET_ACCESS_KEY=your_secret_access_key
+CLOUDFLARE_S3_ENDPOINT=https://your_account_id.r2.cloudflarestorage.com
+CLOUDFLARE_PUBLIC_URL=https://your_public_url
+CLOUDFLARE_BUCKET_NAME=your_bucket_name
 ```
+
+See `.env.example` for more details and `DEPLOYMENT.md` for full configuration guide.
 
 ## Deployment
 
@@ -130,7 +142,8 @@ npm start
 - ⚠️ **Never share your private keys**
 - 🔐 All transactions require wallet signature
 - 💾 Token data is stored locally (file-based, migrating to DB)
-- 🔒 Service fee wallet is fixed in code
+- 🔒 Service fee wallet configured via environment variables
+- 🛡️ Cloudflare R2 credentials are server-side only and never exposed to clients
 
 ## Developer
 

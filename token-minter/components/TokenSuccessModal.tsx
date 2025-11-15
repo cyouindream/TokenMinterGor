@@ -145,20 +145,9 @@ export default function TokenSuccessModal({
               <div className="border-t border-accent-lime/50 my-3"></div>
               <div className="flex justify-between items-center">
                 <span className="text-foreground-muted font-semibold">Service Fee:</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-accent-lime-bright font-bold">
-                    {formatSOL(transactionDetails.serviceFee)} SOL
-                  </span>
-                  <a
-                    href={`https://solscan.io/tx/${transactionDetails.signature}?cluster=devnet`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-accent-lime hover:text-accent-lime-bright transition-colors text-sm underline"
-                    title="View transaction on Solscan"
-                  >
-                    View
-                  </a>
-                </div>
+                <span className="text-accent-lime-bright font-bold">
+                  {formatSOL(transactionDetails.serviceFee)} SOL
+                </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-foreground-muted font-semibold">Network Fee (Gas):</span>

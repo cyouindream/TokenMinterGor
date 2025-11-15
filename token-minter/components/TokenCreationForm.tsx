@@ -10,12 +10,15 @@ export default function TokenCreationForm() {
   const { publicKey, signTransaction } = useWallet();
   const { connection } = useConnection();
 
+  // Get creation fee from environment variable
+  const creationFee = process.env.NEXT_PUBLIC_CREATION_FEE || "0.03";
+
   const [formData, setFormData] = useState<TokenMetadata>({
     name: "",
     symbol: "",
     description: "",
     decimals: 9,
-    totalSupply: 1000000,
+    totalSupply: 1000000000000,
     imageUrl: "",
     mintable: false,
   });
@@ -129,7 +132,7 @@ export default function TokenCreationForm() {
           symbol: "",
           description: "",
           decimals: 9,
-          totalSupply: 1000000,
+          totalSupply: 1000000000000,
           imageUrl: "",
           mintable: false,
         });
@@ -304,7 +307,7 @@ export default function TokenCreationForm() {
         <div className="bg-dark-green-secondary border border-accent-lime/50 rounded-lg p-4 shadow-lg shadow-accent-lime/10">
           <div className="flex justify-between items-center mb-2">
             <span className="text-foreground-muted font-semibold">Creation Fee:</span>
-            <span className="text-accent-lime-bright font-bold text-lg">0.03 SOL</span>
+            <span className="text-accent-lime-bright font-bold text-lg">{creationFee} SOL</span>
           </div>
           <div className="text-foreground-muted/70 text-sm">
             <span className="line-through opacity-70">Regular: 0.08 SOL</span>
@@ -327,7 +330,7 @@ export default function TokenCreationForm() {
           disabled={isCreating}
           className="w-full bg-accent-lime hover:bg-accent-lime-bright disabled:bg-foreground-muted/30 text-dark-green font-bold py-4 px-6 rounded-lg transition-all shadow-xl shadow-accent-lime/30 disabled:cursor-not-allowed transform hover:scale-[1.02] disabled:hover:scale-100 hover:shadow-accent-lime/50 border-2 border-accent-lime/50 hover:border-accent-lime disabled:border-foreground-muted/20"
         >
-          {isCreating ? "Creating Token..." : "Create Token (0.03 SOL)"}
+          {isCreating ? "Creating Token..." : `Create Token (${creationFee} SOL)`}
         </button>
       </form>
 

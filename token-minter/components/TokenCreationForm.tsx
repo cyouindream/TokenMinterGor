@@ -155,31 +155,31 @@ export default function TokenCreationForm() {
   };
 
   return (
-    <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border border-purple-300/50 dark:border-purple-700/30 rounded-xl p-8 shadow-2xl">
-      <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent mb-6">
+    <div className="bg-dark-green-transparent backdrop-blur-sm border border-accent-lime/30 rounded-xl p-8 shadow-2xl shadow-accent-lime/10 animate-fade-in hover:border-accent-lime/50 transition-all">
+      <h2 className="text-3xl font-bold text-accent-lime mb-6 animate-glow">
         Create Your SPL Token
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Token Name */}
         <div>
-          <label className="block text-purple-700 dark:text-purple-300 font-semibold mb-2">
-            Token Name <span className="text-pink-500">*</span>
+          <label className="block text-foreground-muted font-semibold mb-2">
+            Token Name <span className="text-accent-lime-bright">*</span>
           </label>
           <input
             type="text"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             placeholder="e.g., My Amazing Token"
-            className="w-full px-4 py-3 bg-purple-50 dark:bg-purple-950/50 border border-purple-300 dark:border-purple-700 rounded-lg text-purple-900 dark:text-purple-100 placeholder-purple-400 dark:placeholder-purple-500 focus:outline-none focus:border-pink-400 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-400/50 dark:focus:ring-pink-500/50 transition-all"
+            className="w-full px-4 py-3 bg-dark-green-secondary border border-accent-lime/30 rounded-lg text-accent-lime placeholder-foreground-muted/50 focus:outline-none focus:border-accent-lime focus:ring-2 focus:ring-accent-lime/50 transition-all hover:border-accent-lime/50"
             required
           />
         </div>
 
         {/* Token Symbol */}
         <div>
-          <label className="block text-purple-700 dark:text-purple-300 font-semibold mb-2">
-            Token Symbol <span className="text-pink-500">*</span>
+          <label className="block text-foreground-muted font-semibold mb-2">
+            Token Symbol <span className="text-accent-lime-bright">*</span>
           </label>
           <input
             type="text"
@@ -189,17 +189,17 @@ export default function TokenCreationForm() {
             }
             placeholder="e.g., MAT"
             maxLength={10}
-            className="w-full px-4 py-3 bg-purple-50 dark:bg-purple-950/50 border border-purple-300 dark:border-purple-700 rounded-lg text-purple-900 dark:text-purple-100 placeholder-purple-400 dark:placeholder-purple-500 focus:outline-none focus:border-pink-400 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-400/50 dark:focus:ring-pink-500/50 transition-all"
+            className="w-full px-4 py-3 bg-dark-green-secondary border border-accent-lime/30 rounded-lg text-accent-lime placeholder-foreground-muted/50 focus:outline-none focus:border-accent-lime focus:ring-2 focus:ring-accent-lime/50 transition-all hover:border-accent-lime/50"
             required
           />
-          <p className="text-purple-500 dark:text-purple-400 text-sm mt-1">
+          <p className="text-foreground-muted/70 text-sm mt-1">
             Maximum 10 characters
           </p>
         </div>
 
         {/* Description */}
         <div>
-          <label className="block text-purple-700 dark:text-purple-300 font-semibold mb-2">
+          <label className="block text-foreground-muted font-semibold mb-2">
             Description
           </label>
           <textarea
@@ -209,14 +209,14 @@ export default function TokenCreationForm() {
             }
             placeholder="Describe your token..."
             rows={3}
-            className="w-full px-4 py-3 bg-purple-50 dark:bg-purple-950/50 border border-purple-300 dark:border-purple-700 rounded-lg text-purple-900 dark:text-purple-100 placeholder-purple-400 dark:placeholder-purple-500 focus:outline-none focus:border-pink-400 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-400/50 dark:focus:ring-pink-500/50 transition-all"
+            className="w-full px-4 py-3 bg-dark-green-secondary border border-accent-lime/30 rounded-lg text-accent-lime placeholder-foreground-muted/50 focus:outline-none focus:border-accent-lime focus:ring-2 focus:ring-accent-lime/50 transition-all hover:border-accent-lime/50 resize-none"
           />
         </div>
 
         {/* Decimals and Total Supply */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-purple-700 dark:text-purple-300 font-semibold mb-2">
+            <label className="block text-foreground-muted font-semibold mb-2">
               Decimals
             </label>
             <input
@@ -227,15 +227,15 @@ export default function TokenCreationForm() {
               }
               min={0}
               max={9}
-              className="w-full px-4 py-3 bg-purple-50 dark:bg-purple-950/50 border border-purple-300 dark:border-purple-700 rounded-lg text-purple-900 dark:text-purple-100 focus:outline-none focus:border-pink-400 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-400/50 dark:focus:ring-pink-500/50 transition-all"
+              className="w-full px-4 py-3 bg-dark-green-secondary border border-accent-lime/30 rounded-lg text-accent-lime focus:outline-none focus:border-accent-lime focus:ring-2 focus:ring-accent-lime/50 transition-all hover:border-accent-lime/50"
             />
-            <p className="text-purple-600 dark:text-purple-400 text-sm mt-1">
+            <p className="text-foreground-muted/70 text-sm mt-1">
               Recommended: 9 (like SOL)
             </p>
           </div>
 
           <div>
-            <label className="block text-purple-700 dark:text-purple-300 font-semibold mb-2">
+            <label className="block text-foreground-muted font-semibold mb-2">
               Total Supply
             </label>
             <input
@@ -248,14 +248,14 @@ export default function TokenCreationForm() {
                 })
               }
               min={1}
-              className="w-full px-4 py-3 bg-purple-50 dark:bg-purple-950/50 border border-purple-300 dark:border-purple-700 rounded-lg text-purple-900 dark:text-purple-100 focus:outline-none focus:border-pink-400 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-400/50 dark:focus:ring-pink-500/50 transition-all"
+              className="w-full px-4 py-3 bg-dark-green-secondary border border-accent-lime/30 rounded-lg text-accent-lime focus:outline-none focus:border-accent-lime focus:ring-2 focus:ring-accent-lime/50 transition-all hover:border-accent-lime/50"
             />
           </div>
         </div>
 
         {/* Token Icon Upload */}
         <div>
-          <label className="block text-purple-700 dark:text-purple-300 font-semibold mb-2">
+          <label className="block text-foreground-muted font-semibold mb-2">
             Token Icon (Optional)
           </label>
           <div className="space-y-3">
@@ -264,10 +264,10 @@ export default function TokenCreationForm() {
               accept="image/jpeg,image/png,image/gif,image/webp"
               onChange={handleFileChange}
               disabled={isUploading}
-              className="w-full px-4 py-3 bg-purple-50 dark:bg-purple-950/50 border border-purple-300 dark:border-purple-700 rounded-lg text-purple-900 dark:text-purple-100 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-600 dark:file:bg-purple-600 file:text-white hover:file:bg-purple-700 dark:hover:file:bg-purple-700 focus:outline-none focus:border-pink-400 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-400/50 dark:focus:ring-pink-500/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-3 bg-dark-green-secondary border border-accent-lime/30 rounded-lg text-accent-lime file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-accent-lime file:text-dark-green hover:file:bg-accent-lime-bright focus:outline-none focus:border-accent-lime focus:ring-2 focus:ring-accent-lime/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:border-accent-lime/50"
             />
             {imagePreview && (
-              <div className="relative w-32 h-32 rounded-lg overflow-hidden border-2 border-pink-500/50">
+              <div className="relative w-32 h-32 rounded-lg overflow-hidden border-2 border-accent-lime/50 shadow-lg shadow-accent-lime/20">
                 <img
                   src={imagePreview}
                   alt="Token icon preview"
@@ -276,10 +276,10 @@ export default function TokenCreationForm() {
               </div>
             )}
             {isUploading && (
-              <p className="text-pink-400 dark:text-pink-400 text-sm">Uploading image...</p>
+              <p className="text-accent-lime-bright text-sm animate-pulse">Uploading image...</p>
             )}
           </div>
-          <p className="text-purple-600 dark:text-purple-400 text-sm mt-1">
+          <p className="text-foreground-muted/70 text-sm mt-1">
             Max 5MB, JPEG, PNG, GIF, or WebP
           </p>
         </div>
@@ -293,30 +293,30 @@ export default function TokenCreationForm() {
             onChange={(e) =>
               setFormData({ ...formData, mintable: e.target.checked })
             }
-            className="w-5 h-5 text-pink-600 dark:text-pink-500 bg-purple-50 dark:bg-purple-950/50 border-purple-300 dark:border-purple-700 rounded focus:ring-pink-500 dark:focus:ring-pink-500 accent-pink-600 dark:accent-pink-500"
+            className="w-5 h-5 text-accent-lime bg-dark-green-secondary border-accent-lime/30 rounded focus:ring-accent-lime accent-accent-lime"
           />
-          <label htmlFor="mintable" className="text-purple-700 dark:text-purple-100">
+          <label htmlFor="mintable" className="text-foreground-muted">
             Keep token mintable (can create more tokens later)
           </label>
         </div>
 
         {/* Fee Information */}
-        <div className="bg-gradient-to-r from-purple-950/60 to-pink-950/60 dark:from-purple-950/60 dark:to-pink-950/60 border border-pink-600/50 dark:border-pink-600/50 rounded-lg p-4 shadow-lg">
+        <div className="bg-dark-green-secondary border border-accent-lime/50 rounded-lg p-4 shadow-lg shadow-accent-lime/10">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-purple-700 dark:text-purple-100 font-semibold">Creation Fee:</span>
-            <span className="text-pink-600 dark:text-pink-300 font-bold text-lg">0.03 SOL</span>
+            <span className="text-foreground-muted font-semibold">Creation Fee:</span>
+            <span className="text-accent-lime-bright font-bold text-lg">0.03 SOL</span>
           </div>
-          <div className="text-purple-700 dark:text-purple-300 text-sm">
+          <div className="text-foreground-muted/70 text-sm">
             <span className="line-through opacity-70">Regular: 0.08 SOL</span>
-            <span className="ml-2 text-pink-600 dark:text-pink-400 font-semibold bg-pink-900/30 dark:bg-pink-900/30 px-2 py-1 rounded">
-              ✨ Special Offer!
+            <span className="ml-2 text-accent-lime font-semibold bg-accent-lime/10 px-2 py-1 rounded">
+              Special Offer!
             </span>
           </div>
         </div>
 
         {/* Error Message */}
         {error && (
-          <div className="bg-pink-500/20 dark:bg-pink-500/20 border border-pink-500 dark:border-pink-500 rounded-lg p-4 text-pink-900 dark:text-pink-200 shadow-lg">
+          <div className="bg-red-900/30 border border-red-500/50 rounded-lg p-4 text-red-300 shadow-lg shadow-red-500/10">
             {error}
           </div>
         )}
@@ -325,9 +325,9 @@ export default function TokenCreationForm() {
         <button
           type="submit"
           disabled={isCreating}
-          className="w-full bg-gradient-to-r from-purple-600 via-purple-700 to-pink-600 dark:from-purple-600 dark:via-purple-700 dark:to-pink-600 hover:from-purple-700 hover:via-purple-800 hover:to-pink-700 dark:hover:from-purple-700 dark:hover:via-purple-800 dark:hover:to-pink-700 disabled:from-gray-600 disabled:to-gray-700 text-white font-bold py-4 px-6 rounded-lg transition-all shadow-xl shadow-pink-500/50 dark:shadow-pink-500/50 disabled:cursor-not-allowed transform hover:scale-[1.02] disabled:hover:scale-100"
+          className="w-full bg-accent-lime hover:bg-accent-lime-bright disabled:bg-foreground-muted/30 text-dark-green font-bold py-4 px-6 rounded-lg transition-all shadow-xl shadow-accent-lime/30 disabled:cursor-not-allowed transform hover:scale-[1.02] disabled:hover:scale-100 hover:shadow-accent-lime/50 border-2 border-accent-lime/50 hover:border-accent-lime disabled:border-foreground-muted/20"
         >
-          {isCreating ? "✨ Creating Token..." : "✨ Create Token (0.03 SOL)"}
+          {isCreating ? "Creating Token..." : "Create Token (0.03 SOL)"}
         </button>
       </form>
 

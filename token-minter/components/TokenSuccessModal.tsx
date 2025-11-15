@@ -30,24 +30,24 @@ export default function TokenSuccessModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center z-50 p-4">
       <div
-        className={`bg-gradient-to-br from-purple-900/98 via-pink-950/98 to-pink-900/98 dark:from-purple-950/98 dark:via-pink-900/98 dark:to-pink-950/98 border-4 border-pink-500/50 dark:border-pink-600/50 rounded-2xl shadow-2xl shadow-pink-500/30 dark:shadow-pink-500/20 max-w-2xl w-full max-h-[90vh] overflow-y-auto transition-all duration-500 ${
+        className={`bg-dark-green-secondary border-4 border-accent-lime/50 rounded-2xl shadow-2xl shadow-accent-lime/30 max-w-2xl w-full max-h-[90vh] overflow-y-auto transition-all duration-500 ${
           showAnimation
             ? "opacity-100 scale-100"
             : "opacity-0 scale-95"
         }`}
       >
         {/* Success Header with Animation */}
-        <div className="text-center p-8 border-b border-pink-600/50 dark:border-pink-700/50 bg-gradient-to-r from-pink-900/30 to-purple-900/30 dark:from-pink-950/30 dark:to-purple-950/30">
+        <div className="text-center p-8 border-b border-accent-lime/50 bg-dark-green-transparent">
           <div className="mb-4 flex justify-center">
             <div
-              className={`w-24 h-24 bg-gradient-to-br from-purple-300 to-purple-500 dark:from-purple-400 dark:to-purple-600 rounded-full flex items-center justify-center transition-all duration-700 shadow-xl shadow-purple-400/50 dark:shadow-purple-500/40 ${
+              className={`w-24 h-24 bg-accent-lime rounded-full flex items-center justify-center transition-all duration-700 shadow-xl shadow-accent-lime/50 animate-glow ${
                 showAnimation ? "scale-100 rotate-0" : "scale-0 rotate-180"
               }`}
             >
               <svg
-                className="w-14 h-14 text-white"
+                className="w-14 h-14 text-dark-green"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -62,22 +62,22 @@ export default function TokenSuccessModal({
             </div>
           </div>
           <h2
-            className={`text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-pink-300 to-pink-400 dark:from-purple-200 dark:via-pink-200 dark:to-pink-300 mb-3 transition-all duration-500 delay-200 ${
+            className={`text-4xl font-bold text-accent-lime mb-3 transition-all duration-500 delay-200 ${
               showAnimation
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-4"
             }`}
           >
-            ✨ Congratulations! ✨
+            Congratulations!
           </h2>
           <p
-            className={`text-xl text-purple-100 dark:text-purple-200 font-semibold transition-all duration-500 delay-300 ${
+            className={`text-xl text-foreground-muted font-semibold transition-all duration-500 delay-300 ${
               showAnimation
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-4"
             }`}
           >
-            Your SPL Token Has Been Successfully Created! ✨💫
+            Your SPL Token Has Been Successfully Created!
           </p>
         </div>
 
@@ -85,32 +85,32 @@ export default function TokenSuccessModal({
         <div className="p-6 space-y-6">
           {/* Token Details */}
           <div
-            className={`bg-gradient-to-r from-purple-900/50 to-pink-900/50 dark:from-purple-950/50 dark:to-pink-950/50 border-2 border-pink-600/50 dark:border-pink-700/50 rounded-lg p-5 shadow-lg dark:shadow-md transition-all duration-500 delay-400 ${
+            className={`bg-dark-green-transparent border-2 border-accent-lime/50 rounded-lg p-5 shadow-lg transition-all duration-500 delay-400 ${
               showAnimation
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-4"
             }`}
           >
-            <h3 className="text-xl font-bold text-pink-300 dark:text-pink-200 mb-4 flex items-center gap-2">
+            <h3 className="text-xl font-bold text-accent-lime mb-4 flex items-center gap-2">
               <span className="text-2xl">🪙</span>
               Token Information
             </h3>
             <div className="space-y-3 text-base">
               <div className="flex justify-between">
-                <span className="text-purple-300 dark:text-purple-200 font-semibold">Name:</span>
-                <span className="text-purple-100 dark:text-purple-50 font-bold">
+                <span className="text-foreground-muted font-semibold">Name:</span>
+                <span className="text-accent-lime font-bold">
                   {token.metadata.name}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-purple-300 dark:text-purple-200 font-semibold">Symbol:</span>
-                <span className="text-pink-300 dark:text-pink-200 font-bold text-lg">
+                <span className="text-foreground-muted font-semibold">Symbol:</span>
+                <span className="text-accent-lime-bright font-bold text-lg">
                   ${token.metadata.symbol}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-purple-300 dark:text-purple-200 font-semibold">Mint Address:</span>
-                <span className="text-purple-100 dark:text-purple-50 font-mono text-sm bg-purple-950/50 dark:bg-purple-900/70 px-2 py-1 rounded">
+                <span className="text-foreground-muted font-semibold">Mint Address:</span>
+                <span className="text-accent-lime font-mono text-sm bg-dark-green-secondary px-2 py-1 rounded">
                   {truncateAddress(token.mintAddress)}
                 </span>
               </div>
@@ -119,41 +119,41 @@ export default function TokenSuccessModal({
 
           {/* Transaction Details */}
           <div
-            className={`bg-gradient-to-r from-pink-950/50 to-purple-950/50 dark:from-pink-900/50 dark:to-purple-900/50 border-2 border-pink-600/40 dark:border-pink-700/40 rounded-lg p-5 shadow-lg dark:shadow-md transition-all duration-500 delay-500 ${
+            className={`bg-dark-green-transparent border-2 border-accent-lime/40 rounded-lg p-5 shadow-lg transition-all duration-500 delay-500 ${
               showAnimation
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-4"
             }`}
           >
-            <h3 className="text-xl font-bold text-pink-300 dark:text-pink-200 mb-4 flex items-center gap-2">
+            <h3 className="text-xl font-bold text-accent-lime mb-4 flex items-center gap-2">
               <span className="text-2xl">💸</span>
               Transaction Details
             </h3>
             <div className="space-y-3 text-base">
               <div className="flex justify-between items-center">
-                <span className="text-purple-300 dark:text-purple-200 font-semibold">From Wallet:</span>
-                <span className="text-purple-100 dark:text-purple-50 font-mono text-sm bg-purple-950/50 dark:bg-purple-900/70 px-2 py-1 rounded">
+                <span className="text-foreground-muted font-semibold">From Wallet:</span>
+                <span className="text-accent-lime font-mono text-sm bg-dark-green-secondary px-2 py-1 rounded">
                   {truncateAddress(transactionDetails.fromWallet)}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-purple-300 dark:text-purple-200 font-semibold">To Wallet (Service):</span>
-                <span className="text-purple-100 dark:text-purple-50 font-mono text-sm bg-purple-950/50 dark:bg-purple-900/70 px-2 py-1 rounded">
+                <span className="text-foreground-muted font-semibold">To Wallet (Service):</span>
+                <span className="text-accent-lime font-mono text-sm bg-dark-green-secondary px-2 py-1 rounded">
                   {truncateAddress(transactionDetails.toWallet)}
                 </span>
               </div>
-              <div className="border-t border-pink-700/50 dark:border-pink-600/50 my-3"></div>
+              <div className="border-t border-accent-lime/50 my-3"></div>
               <div className="flex justify-between items-center">
-                <span className="text-purple-300 dark:text-purple-200 font-semibold">Service Fee:</span>
+                <span className="text-foreground-muted font-semibold">Service Fee:</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-pink-300 dark:text-pink-200 font-bold">
+                  <span className="text-accent-lime-bright font-bold">
                     {formatSOL(transactionDetails.serviceFee)} SOL
                   </span>
                   <a
                     href={`https://solscan.io/tx/${transactionDetails.signature}?cluster=devnet`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-pink-400 dark:text-pink-300 hover:text-pink-300 dark:hover:text-pink-200 transition-colors text-sm underline"
+                    className="text-accent-lime hover:text-accent-lime-bright transition-colors text-sm underline"
                     title="View transaction on Solscan"
                   >
                     View
@@ -161,15 +161,15 @@ export default function TokenSuccessModal({
                 </div>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-purple-300 dark:text-purple-200 font-semibold">Network Fee (Gas):</span>
-                <span className="text-pink-300 dark:text-pink-200 font-bold">
+                <span className="text-foreground-muted font-semibold">Network Fee (Gas):</span>
+                <span className="text-accent-lime-bright font-bold">
                   {formatSOL(transactionDetails.networkFee)} SOL
                 </span>
               </div>
-              <div className="border-t border-pink-700/50 dark:border-pink-600/50 my-3"></div>
+              <div className="border-t border-accent-lime/50 my-3"></div>
               <div className="flex justify-between items-center">
-                <span className="text-pink-300 dark:text-pink-200 font-bold text-lg">Total Cost:</span>
-                <span className="text-pink-300 dark:text-pink-200 font-bold text-xl">
+                <span className="text-accent-lime font-bold text-lg">Total Cost:</span>
+                <span className="text-accent-lime-bright font-bold text-xl">
                   {formatSOL(transactionDetails.totalCost)} SOL
                 </span>
               </div>
@@ -178,33 +178,33 @@ export default function TokenSuccessModal({
 
           {/* Balance Changes */}
           <div
-            className={`bg-gradient-to-r from-purple-950/50 to-pink-950/50 dark:from-purple-900/50 dark:to-pink-900/50 border-2 border-purple-600/40 dark:border-purple-700/40 rounded-lg p-5 shadow-lg dark:shadow-md transition-all duration-500 delay-600 ${
+            className={`bg-dark-green-transparent border-2 border-accent-lime/40 rounded-lg p-5 shadow-lg transition-all duration-500 delay-600 ${
               showAnimation
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-4"
             }`}
           >
-            <h3 className="text-xl font-bold text-purple-300 dark:text-purple-200 mb-4 flex items-center gap-2">
+            <h3 className="text-xl font-bold text-accent-lime mb-4 flex items-center gap-2">
               <span className="text-2xl">💰</span>
               Wallet Balance
             </h3>
             <div className="space-y-3 text-base">
               <div className="flex justify-between items-center">
-                <span className="text-purple-300 dark:text-purple-200 font-semibold">Before Transaction:</span>
-                <span className="text-purple-100 dark:text-purple-50 font-bold">
+                <span className="text-foreground-muted font-semibold">Before Transaction:</span>
+                <span className="text-accent-lime font-bold">
                   {formatSOL(transactionDetails.balanceBefore)} SOL
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-purple-300 dark:text-purple-200 font-semibold">After Transaction:</span>
-                <span className="text-purple-100 dark:text-purple-50 font-bold">
+                <span className="text-foreground-muted font-semibold">After Transaction:</span>
+                <span className="text-accent-lime font-bold">
                   {formatSOL(transactionDetails.balanceAfter)} SOL
                 </span>
               </div>
-              <div className="border-t border-purple-700/50 dark:border-purple-600/50 my-3"></div>
+              <div className="border-t border-accent-lime/50 my-3"></div>
               <div className="flex justify-between items-center">
-                <span className="text-pink-400 dark:text-pink-300 font-bold text-lg">Change:</span>
-                <span className="text-pink-400 dark:text-pink-300 font-bold text-xl">
+                <span className="text-accent-lime-bright font-bold text-lg">Change:</span>
+                <span className="text-accent-lime-bright font-bold text-xl">
                   -{formatSOL(transactionDetails.totalCost)} SOL
                 </span>
               </div>
@@ -213,19 +213,19 @@ export default function TokenSuccessModal({
 
           {/* Transaction Link */}
           <div
-            className={`bg-gradient-to-r from-pink-950/50 to-purple-950/50 dark:from-pink-900/50 dark:to-purple-900/50 border-2 border-pink-600/40 dark:border-pink-700/40 rounded-lg p-5 shadow-lg dark:shadow-md transition-all duration-500 delay-700 ${
+            className={`bg-dark-green-transparent border-2 border-accent-lime/40 rounded-lg p-5 shadow-lg transition-all duration-500 delay-700 ${
               showAnimation
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-4"
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-pink-200 dark:text-pink-100 font-semibold">🔍 View on Solscan:</span>
+              <span className="text-foreground-muted font-semibold">View on Solscan:</span>
               <a
                 href={`https://solscan.io/tx/${transactionDetails.signature}?cluster=devnet`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-pink-400 dark:text-pink-300 hover:text-pink-300 dark:hover:text-pink-200 underline font-mono text-sm transition-colors"
+                className="text-accent-lime hover:text-accent-lime-bright underline font-mono text-sm transition-colors"
               >
                 {truncateAddress(transactionDetails.signature)}
               </a>
@@ -242,9 +242,9 @@ export default function TokenSuccessModal({
           >
             <button
               onClick={onClose}
-              className="w-full bg-gradient-to-r from-pink-600 via-pink-700 to-purple-700 dark:from-pink-700 dark:via-pink-800 dark:to-purple-800 hover:from-pink-700 hover:via-pink-800 hover:to-purple-800 dark:hover:from-pink-600 dark:hover:via-pink-700 dark:hover:to-purple-700 text-white font-bold py-4 px-6 rounded-lg transition-all shadow-xl shadow-pink-500/50 dark:shadow-pink-500/30 hover:shadow-2xl hover:shadow-pink-500/60 dark:hover:shadow-pink-500/40 transform hover:scale-[1.02]"
+              className="w-full bg-accent-lime hover:bg-accent-lime-bright text-dark-green font-bold py-4 px-6 rounded-lg transition-all shadow-xl shadow-accent-lime/50 hover:shadow-2xl hover:shadow-accent-lime/60 transform hover:scale-[1.02] border-2 border-accent-lime/50 hover:border-accent-lime"
             >
-              ✨ Return to Main Screen
+              Return to Main Screen
             </button>
           </div>
         </div>

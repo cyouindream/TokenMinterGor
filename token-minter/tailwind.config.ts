@@ -10,13 +10,18 @@ const config: Config = {
     extend: {
       colors: {
         background: "var(--background)",
+        "background-secondary": "var(--background-secondary)",
         foreground: "var(--foreground)",
-        pastel: {
-          pink: "var(--pastel-pink)",
-          mint: "var(--pastel-mint)",
-          peach: "var(--pastel-peach)",
-          lavender: "var(--pastel-lavender)",
-        },
+        "foreground-muted": "var(--foreground-muted)",
+        "accent-lime": "var(--accent-lime)",
+        "accent-lime-bright": "var(--accent-lime-bright)",
+        "dark-green": "var(--dark-green)",
+        "dark-green-secondary": "var(--dark-green-secondary)",
+        "dark-green-transparent": "var(--dark-green-transparent)",
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.6s ease-out',
+        'glow': 'glow 2s ease-in-out infinite',
       },
     },
   },

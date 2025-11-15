@@ -3,29 +3,26 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --pastel-pink: #F8B4D9;
-  --pastel-mint: #B4E7CE;
-  --pastel-peach: #FFD4B2;
-  --pastel-lavender: #E5D4FF;
+  --background: #1a1f1a;
+  --background-secondary: #2a2f2a;
+  --foreground: #c4ff61;
+  --foreground-muted: #a8b5a0;
+  --accent-lime: #c4ff61;
+  --accent-lime-bright: #b8f54e;
+  --dark-green: #1a1f1a;
+  --dark-green-secondary: #2a2f2a;
+  --dark-green-transparent: rgba(42, 47, 42, 0.8);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1a1d28;
-    --foreground: #F1F5F9;
-    --pastel-pink: #D4A5C0;
-    --pastel-mint: #A8D5BA;
-    --pastel-peach: #E8C4A0;
-    --pastel-lavender: #C8B8E0;
-  }
+* {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
+  color: var(--foreground-muted);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Courier New', Courier, monospace, Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease;
 }
 
 @layer utilities {
@@ -34,22 +31,54 @@ body {
   }
 }
 
-/* Wallet adapter styles - Pastel Theme */
+/* Wallet adapter styles - Matrix/Military Green Theme */
 .wallet-adapter-button {
-  background: linear-gradient(135deg, #D4A5C0 0%, #A8D5BA 100%) !important;
+  background: var(--dark-green-transparent) !important;
+  border: 2px solid var(--accent-lime) !important;
   border-radius: 8px !important;
   padding: 12px 24px !important;
   font-weight: 600 !important;
-  box-shadow: 0 4px 12px rgba(212, 165, 192, 0.3) !important;
+  color: var(--accent-lime) !important;
+  box-shadow: 0 0 20px rgba(196, 255, 97, 0.2) !important;
   transition: all 0.3s ease !important;
 }
 
 .wallet-adapter-button:hover {
-  background: linear-gradient(135deg, #E5B5D0 0%, #B8E5CA 100%) !important;
-  box-shadow: 0 6px 16px rgba(229, 181, 208, 0.4) !important;
+  background: var(--accent-lime) !important;
+  color: var(--dark-green) !important;
+  box-shadow: 0 0 30px rgba(196, 255, 97, 0.4) !important;
   transform: translateY(-2px) !important;
 }
 
 .wallet-adapter-modal-wrapper {
-  background: rgba(0, 0, 0, 0.8) !important;
+  background: rgba(26, 31, 26, 0.95) !important;
+}
+
+/* Smooth animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(196, 255, 97, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(196, 255, 97, 0.4);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
 }

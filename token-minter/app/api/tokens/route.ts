@@ -1,44 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CreatedToken } from "@/types/token";
-import { promises as fs } from "fs";
-import path from "path";
-
-const DATA_FILE = path.join(process.cwd(), "data", "tokens.json");
-
-// Ensure data directory exists
-async function ensureDataDir() {
-  const dataDir = path.join(process.cwd(), "data");
-  try {
-    await fs.access(dataDir);
-  } catch {
-    await fs.mkdir(dataDir, { recursive: true });
-  }
-}
-
-// Read tokens from file
-async function readTokens(): Promise<CreatedToken[]> {
-  try {
-    await ensureDataDir();
-    const data = await fs.readFile(DATA_FILE, "utf-8");
-    return JSON.parse(data);
-  } catch (error) {
-    // File doesn't exist or is empty, return empty array
-    return [];
-  }
-}
-
-// Write tokens to file
-async function writeTokens(tokens: CreatedToken[]): Promise<void> {
-  await ensureDataDir();
-  await fs.writeFile(DATA_FILE, JSON.stringify(tokens, null, 2));
-}
+import { getAllTokens, saveToken } from "@/lib/db";
 
 // GET: Fetch all tokens
 export async function GET() {
   try {
-    const tokens = await readTokens();
-    // Sort by creation date, newest first
-    tokens.sort((a, b) => b.createdAt - a.createdAt);
+    const tokens = await getAllTokens();
 
     return NextResponse.json({
       success: true,
@@ -74,21 +41,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Read existing tokens
-    const tokens = await readTokens();
-
-    // Check if token already exists
-    const existingIndex = tokens.findIndex((t) => t.id === token.id);
-    if (existingIndex >= 0) {
-      // Update existing token
-      tokens[existingIndex] = token;
-    } else {
-      // Add new token
-      tokens.push(token);
-    }
-
-    // Save to file
-    await writeTokens(tokens);
+    // Save token to database (will upsert if already exists)
+    await saveToken(token);
 
     return NextResponse.json({
       success: true,

@@ -28,6 +28,9 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+# Allow tracking the root `.env` file. WARNING: this file may contain secrets.
+# Consider using a secrets manager or `.env.example` instead of committing secrets.
+!.env
 
 # vercel
 .vercel

@@ -20,7 +20,8 @@ export default function TokenCreationForm() {
     decimals: 9,
     totalSupply: 1000000000000,
     imageUrl: "",
-    mintable: false,
+    revokeMint: false,
+    revokeFreeze: false,
   });
 
   const [isCreating, setIsCreating] = useState(false);
@@ -134,7 +135,8 @@ export default function TokenCreationForm() {
           decimals: 9,
           totalSupply: 1000000000000,
           imageUrl: "",
-          mintable: false,
+          revokeMint: false,
+          revokeFreeze: false,
         });
         setSelectedFile(null);
         setImagePreview(null);
@@ -287,20 +289,45 @@ export default function TokenCreationForm() {
           </p>
         </div>
 
-        {/* Mintable Option */}
-        <div className="flex items-center gap-3">
-          <input
-            type="checkbox"
-            id="mintable"
-            checked={formData.mintable}
-            onChange={(e) =>
-              setFormData({ ...formData, mintable: e.target.checked })
-            }
-            className="w-5 h-5 text-accent-lime bg-dark-green-secondary border-accent-lime/30 rounded focus:ring-accent-lime accent-accent-lime"
-          />
-          <label htmlFor="mintable" className="text-foreground-muted">
-            Keep token mintable (can create more tokens later)
-          </label>
+        {/* Revoke Options */}
+        <div className="space-y-4 bg-dark-green-secondary/50 border border-accent-lime/30 rounded-lg p-4">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 flex-1">
+              <input
+                type="checkbox"
+                id="revokeMint"
+                checked={formData.revokeMint}
+                onChange={(e) =>
+                  setFormData({ ...formData, revokeMint: e.target.checked })
+                }
+                className="w-5 h-5 text-accent-lime bg-dark-green-secondary border-accent-lime/30 rounded focus:ring-accent-lime accent-accent-lime"
+              />
+              <label htmlFor="revokeMint" className="text-foreground-muted cursor-pointer">
+                <span className="font-semibold">Revoke Mint</span>
+                <p className="text-sm text-foreground-muted/70">No one will be able to create more tokens anymore</p>
+              </label>
+            </div>
+            <span className="text-xs font-bold text-dark-green bg-accent-lime-bright px-2 py-1 rounded shadow-lg">FREE</span>
+          </div>
+
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 flex-1">
+              <input
+                type="checkbox"
+                id="revokeFreeze"
+                checked={formData.revokeFreeze}
+                onChange={(e) =>
+                  setFormData({ ...formData, revokeFreeze: e.target.checked })
+                }
+                className="w-5 h-5 text-accent-lime bg-dark-green-secondary border-accent-lime/30 rounded focus:ring-accent-lime accent-accent-lime"
+              />
+              <label htmlFor="revokeFreeze" className="text-foreground-muted cursor-pointer">
+                <span className="font-semibold">Revoke Freeze</span>
+                <p className="text-sm text-foreground-muted/70">No one will be able to freeze holders' token accounts anymore</p>
+              </label>
+            </div>
+            <span className="text-xs font-bold text-dark-green bg-accent-lime-bright px-2 py-1 rounded shadow-lg">FREE</span>
+          </div>
         </div>
 
         {/* Fee Information */}

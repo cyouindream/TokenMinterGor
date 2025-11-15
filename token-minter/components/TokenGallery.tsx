@@ -119,15 +119,35 @@ export default function TokenGallery() {
                   {token.network}
                 </span>
               </div>
-              <div className="flex justify-between text-foreground-muted">
-                <span>Mintable:</span>
-                <span
-                  className={
-                    token.metadata.mintable ? "text-accent-lime-bright font-semibold" : "text-red-400 font-semibold"
-                  }
-                >
-                  {token.metadata.mintable ? "Yes" : "No"}
-                </span>
+              <div className="flex justify-between items-center text-foreground-muted">
+                <span>Revoke Mint:</span>
+                <div className="flex items-center gap-2">
+                  <span
+                    className={
+                      token.metadata.revokeMint ? "text-accent-lime-bright font-semibold" : "text-red-400 font-semibold"
+                    }
+                  >
+                    {token.metadata.revokeMint ? "Yes" : "No"}
+                  </span>
+                  {token.metadata.revokeMint && (
+                    <span className="text-[10px] font-bold text-dark-green bg-accent-lime-bright px-1.5 py-0.5 rounded">FREE</span>
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-between items-center text-foreground-muted">
+                <span>Revoke Freeze:</span>
+                <div className="flex items-center gap-2">
+                  <span
+                    className={
+                      token.metadata.revokeFreeze ? "text-accent-lime-bright font-semibold" : "text-red-400 font-semibold"
+                    }
+                  >
+                    {token.metadata.revokeFreeze ? "Yes" : "No"}
+                  </span>
+                  {token.metadata.revokeFreeze && (
+                    <span className="text-[10px] font-bold text-dark-green bg-accent-lime-bright px-1.5 py-0.5 rounded">FREE</span>
+                  )}
+                </div>
               </div>
             </div>
 

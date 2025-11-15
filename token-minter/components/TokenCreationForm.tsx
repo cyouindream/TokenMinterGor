@@ -244,15 +244,16 @@ export default function TokenCreationForm() {
               Total Supply
             </label>
             <input
-              type="number"
-              value={formData.totalSupply}
-              onChange={(e) =>
+              type="text"
+              value={formData.totalSupply.toLocaleString()}
+              onChange={(e) => {
+                const value = e.target.value.replace(/,/g, '');
+                const numValue = parseInt(value) || 0;
                 setFormData({
                   ...formData,
-                  totalSupply: parseInt(e.target.value),
-                })
-              }
-              min={1}
+                  totalSupply: numValue,
+                });
+              }}
               className="w-full px-4 py-3 bg-dark-green-secondary border border-accent-lime/30 rounded-lg text-accent-lime focus:outline-none focus:border-accent-lime focus:ring-2 focus:ring-accent-lime/50 transition-all hover:border-accent-lime/50"
             />
           </div>
@@ -307,7 +308,10 @@ export default function TokenCreationForm() {
                 <p className="text-sm text-foreground-muted/70">No one will be able to create more tokens anymore</p>
               </label>
             </div>
-            <span className="text-xs font-bold text-dark-green bg-accent-lime-bright px-2 py-1 rounded shadow-lg">FREE</span>
+            <div className="text-right flex-shrink-0">
+              <div className="text-xs text-foreground-muted/50 line-through">0.05 SOL</div>
+              <div className="text-sm font-bold text-accent-lime-bright">FREE</div>
+            </div>
           </div>
 
           <div className="flex items-center justify-between gap-3">
@@ -326,7 +330,10 @@ export default function TokenCreationForm() {
                 <p className="text-sm text-foreground-muted/70">No one will be able to freeze holders&apos; token accounts anymore</p>
               </label>
             </div>
-            <span className="text-xs font-bold text-dark-green bg-accent-lime-bright px-2 py-1 rounded shadow-lg">FREE</span>
+            <div className="text-right flex-shrink-0">
+              <div className="text-xs text-foreground-muted/50 line-through">0.05 SOL</div>
+              <div className="text-sm font-bold text-accent-lime-bright">FREE</div>
+            </div>
           </div>
         </div>
 

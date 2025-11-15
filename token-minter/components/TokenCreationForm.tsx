@@ -323,7 +323,7 @@ export default function TokenCreationForm() {
               />
               <label htmlFor="revokeFreeze" className="text-foreground-muted cursor-pointer">
                 <span className="font-semibold">Revoke Freeze</span>
-                <p className="text-sm text-foreground-muted/70">No one will be able to freeze holders' token accounts anymore</p>
+                <p className="text-sm text-foreground-muted/70">No one will be able to freeze holders&apos; token accounts anymore</p>
               </label>
             </div>
             <span className="text-xs font-bold text-dark-green bg-accent-lime-bright px-2 py-1 rounded shadow-lg">FREE</span>

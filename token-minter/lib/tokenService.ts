@@ -110,8 +110,8 @@ export async function createToken(
       createInitializeMint2Instruction(
         mint.publicKey,
         decimals,
-        payer,
-        metadata.mintable ? payer : null,
+        payer, // Mint authority (always set initially to mint the supply)
+        payer, // Freeze authority (will be revoked later if revokeFreeze is true)
         TOKEN_2022_PROGRAM_ID
       )
     );
@@ -160,14 +160,28 @@ export async function createToken(
       )
     );
 
-    // 8. Disable mint authority if not mintable
-    if (!metadata.mintable) {
+    // 8. Revoke mint authority if requested
+    if (metadata.revokeMint) {
       transaction.add(
         createSetAuthorityInstruction(
           mint.publicKey,
           payer,
           AuthorityType.MintTokens,
-          null,
+          null, // Revoke mint authority - no one can mint more tokens
+          [],
+          TOKEN_2022_PROGRAM_ID
+        )
+      );
+    }
+
+    // 9. Revoke freeze authority if requested
+    if (metadata.revokeFreeze) {
+      transaction.add(
+        createSetAuthorityInstruction(
+          mint.publicKey,
+          payer,
+          AuthorityType.FreezeAccount,
+          null, // Revoke freeze authority - no one can freeze token accounts
           [],
           TOKEN_2022_PROGRAM_ID
         )

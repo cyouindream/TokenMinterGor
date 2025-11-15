@@ -5,7 +5,8 @@ export interface TokenMetadata {
   decimals: number;
   totalSupply: number;
   imageUrl?: string;
-  mintable: boolean;
+  revokeMint: boolean;
+  revokeFreeze: boolean;
 }
 
 export interface CreatedToken {

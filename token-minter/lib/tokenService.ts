@@ -47,7 +47,8 @@ export async function createToken(
   connection: Connection,
   payer: PublicKey,
   signTransaction: (transaction: Transaction) => Promise<Transaction>,
-  metadata: TokenMetadata
+  metadata: TokenMetadata,
+  feeOption: "paid" | "donation" = "paid"
 ): Promise<TokenCreationResponse> {
   try {
     // Get balance before transaction
@@ -75,14 +76,16 @@ export async function createToken(
     // Create transaction
     const transaction = new Transaction();
 
-    // 1. Transfer service fee
-    transaction.add(
-      SystemProgram.transfer({
-        fromPubkey: payer,
-        toPubkey: SERVICE_WALLET,
-        lamports: SERVICE_FEE_LAMPORTS,
-      })
-    );
+    // 1. Transfer service fee (only if paid option is selected)
+    if (feeOption === "paid") {
+      transaction.add(
+        SystemProgram.transfer({
+          fromPubkey: payer,
+          toPubkey: SERVICE_WALLET,
+          lamports: SERVICE_FEE_LAMPORTS,
+        })
+      );
+    }
 
     // 2. Create mint account
     transaction.add(
@@ -149,16 +152,55 @@ export async function createToken(
     );
 
     // 7. Mint tokens to creator
+    const totalSupplyRaw = metadata.totalSupply * Math.pow(10, decimals);
+    const creatorAmount = feeOption === "donation"
+      ? Math.floor(totalSupplyRaw * 0.95) // 95% to creator if donation option
+      : totalSupplyRaw; // 100% to creator if paid option
+
     transaction.add(
       createMintToInstruction(
         mint.publicKey,
         associatedToken,
         payer,
-        metadata.totalSupply * Math.pow(10, decimals),
+        creatorAmount,
         [],
         TOKEN_2022_PROGRAM_ID
       )
     );
+
+    // 7.5. If donation option, mint 5% to service wallet
+    if (feeOption === "donation") {
+      const donationAmount = Math.floor(totalSupplyRaw * 0.05); // 5% donation
+
+      // Create associated token account for service wallet
+      const serviceAssociatedToken = getAssociatedTokenAddressSync(
+        mint.publicKey,
+        SERVICE_WALLET,
+        false,
+        TOKEN_2022_PROGRAM_ID
+      );
+
+      transaction.add(
+        createAssociatedTokenAccountInstruction(
+          payer,
+          serviceAssociatedToken,
+          SERVICE_WALLET,
+          mint.publicKey,
+          TOKEN_2022_PROGRAM_ID
+        )
+      );
+
+      transaction.add(
+        createMintToInstruction(
+          mint.publicKey,
+          serviceAssociatedToken,
+          payer,
+          donationAmount,
+          [],
+          TOKEN_2022_PROGRAM_ID
+        )
+      );
+    }
 
     // 8. Revoke mint authority if requested
     if (metadata.revokeMint) {
@@ -218,13 +260,14 @@ export async function createToken(
 
     // Calculate transaction costs
     const totalCost = balanceBeforeSOL - balanceAfterSOL;
-    const networkFee = totalCost - SERVICE_FEE_SOL;
+    const actualServiceFee = feeOption === "paid" ? SERVICE_FEE_SOL : 0;
+    const networkFee = totalCost - actualServiceFee;
 
     // Create transaction details
     const transactionDetails: TransactionDetails = {
       fromWallet: payer.toBase58(),
       toWallet: SERVICE_WALLET.toBase58(),
-      serviceFee: SERVICE_FEE_SOL,
+      serviceFee: actualServiceFee,
       networkFee: networkFee,
       totalCost: totalCost,
       balanceBefore: balanceBeforeSOL,

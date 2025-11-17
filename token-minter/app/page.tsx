@@ -17,11 +17,16 @@ export default function Home() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
+              <img
+                src="https://pub-d3355118e94a463b9a2ae484c8421c1c.r2.dev/GorbaganaIcon.png"
+                alt="Gorbagana Logo"
+                className="w-12 h-12 rounded-full shadow-lg shadow-accent-lime/30"
+              />
               <div className="text-3xl font-bold text-accent-lime drop-shadow-lg animate-glow">
                 Token Minter
               </div>
               <div className="text-xs text-foreground-muted bg-dark-green-secondary px-3 py-1.5 rounded-lg border border-accent-lime/30 shadow-lg">
-                Solana SPL Token Minter
+                Gorbagana SPL Token Minter
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -69,7 +74,7 @@ export default function Home() {
                   Connect Your Wallet
                 </h2>
                 <p className="text-foreground-muted mb-6 text-lg">
-                  Connect your Solana wallet to start creating SPL tokens
+                  Connect your Gorbagana wallet to start creating SPL tokens
                 </p>
                 <div className="flex justify-center">
                   <WalletButton />
@@ -102,7 +107,7 @@ export default function Home() {
             <div className="flex gap-6">
               <span>Token-2022 Standard</span>
               <span className="text-accent-lime/50">•</span>
-              <span>Solana Network</span>
+              <span>Gorbagana Network</span>
             </div>
           </div>
         </div>

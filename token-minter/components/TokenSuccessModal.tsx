@@ -21,7 +21,7 @@ export default function TokenSuccessModal({
     setTimeout(() => setShowAnimation(true), 100);
   }, []);
 
-  const formatSOL = (amount: number) => {
+  const formatGOR = (amount: number) => {
     return amount.toFixed(6);
   };
 
@@ -146,20 +146,20 @@ export default function TokenSuccessModal({
               <div className="flex justify-between items-center">
                 <span className="text-foreground-muted font-semibold">Service Fee:</span>
                 <span className="text-accent-lime-bright font-bold">
-                  {formatSOL(transactionDetails.serviceFee)} SOL
+                  {formatGOR(transactionDetails.serviceFee)} GOR
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-foreground-muted font-semibold">Network Fee (Gas):</span>
                 <span className="text-accent-lime-bright font-bold">
-                  {formatSOL(transactionDetails.networkFee)} SOL
+                  {formatGOR(transactionDetails.networkFee)} GOR
                 </span>
               </div>
               <div className="border-t border-accent-lime/50 my-3"></div>
               <div className="flex justify-between items-center">
                 <span className="text-accent-lime font-bold text-lg">Total Cost:</span>
                 <span className="text-accent-lime-bright font-bold text-xl">
-                  {formatSOL(transactionDetails.totalCost)} SOL
+                  {formatGOR(transactionDetails.totalCost)} GOR
                 </span>
               </div>
             </div>
@@ -181,20 +181,20 @@ export default function TokenSuccessModal({
               <div className="flex justify-between items-center">
                 <span className="text-foreground-muted font-semibold">Before Transaction:</span>
                 <span className="text-accent-lime font-bold">
-                  {formatSOL(transactionDetails.balanceBefore)} SOL
+                  {formatGOR(transactionDetails.balanceBefore)} GOR
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-foreground-muted font-semibold">After Transaction:</span>
                 <span className="text-accent-lime font-bold">
-                  {formatSOL(transactionDetails.balanceAfter)} SOL
+                  {formatGOR(transactionDetails.balanceAfter)} GOR
                 </span>
               </div>
               <div className="border-t border-accent-lime/50 my-3"></div>
               <div className="flex justify-between items-center">
                 <span className="text-accent-lime-bright font-bold text-lg">Change:</span>
                 <span className="text-accent-lime-bright font-bold text-xl">
-                  -{formatSOL(transactionDetails.totalCost)} SOL
+                  -{formatSOL(transactionDetails.totalCost)} GOR
                 </span>
               </div>
             </div>

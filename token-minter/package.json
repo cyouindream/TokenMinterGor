@@ -1,7 +1,7 @@
 {
   "name": "token-minter",
   "version": "1.0.0",
-  "description": "Solana SPL Token-2022 Minter Service",
+  "description": "Gorbagana SPL Token-2022 Minter Service",
   "private": true,
   "scripts": {
     "dev": "next dev",

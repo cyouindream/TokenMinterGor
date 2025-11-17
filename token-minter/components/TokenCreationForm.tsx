@@ -32,6 +32,7 @@ export default function TokenCreationForm() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [feeOption, setFeeOption] = useState<"paid" | "donation">("paid"); // New state for fee option
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -118,7 +119,8 @@ export default function TokenCreationForm() {
         connection,
         publicKey,
         signTransaction,
-        formData
+        formData,
+        feeOption
       );
 
       if (result.success && result.token && result.transactionDetails) {
@@ -161,9 +163,16 @@ export default function TokenCreationForm() {
 
   return (
     <div className="bg-dark-green-transparent backdrop-blur-sm border border-accent-lime/30 rounded-xl p-8 shadow-2xl shadow-accent-lime/10 animate-fade-in hover:border-accent-lime/50 transition-all">
-      <h2 className="text-3xl font-bold text-accent-lime mb-6 animate-glow">
-        Create Your SPL Token
-      </h2>
+      <div className="flex items-center gap-3 mb-6">
+        <img
+          src="https://pub-d3355118e94a463b9a2ae484c8421c1c.r2.dev/GorbaganaIcon.png"
+          alt="Gorbagana Logo"
+          className="w-10 h-10 rounded-full shadow-lg shadow-accent-lime/30"
+        />
+        <h2 className="text-3xl font-bold text-accent-lime animate-glow">
+          Create Your Gorbagana Token
+        </h2>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Token Name */}
@@ -235,7 +244,7 @@ export default function TokenCreationForm() {
               className="w-full px-4 py-3 bg-dark-green-secondary border border-accent-lime/30 rounded-lg text-accent-lime focus:outline-none focus:border-accent-lime focus:ring-2 focus:ring-accent-lime/50 transition-all hover:border-accent-lime/50"
             />
             <p className="text-foreground-muted/70 text-sm mt-1">
-              Recommended: 9 (like SOL)
+              Recommended: 9 (like GOR)
             </p>
           </div>
 
@@ -309,7 +318,7 @@ export default function TokenCreationForm() {
               </label>
             </div>
             <div className="text-right flex-shrink-0">
-              <div className="text-xs text-foreground-muted/50 line-through">0.05 SOL</div>
+              <div className="text-xs text-foreground-muted/50 line-through">0.05 GOR</div>
               <div className="text-sm font-bold text-accent-lime-bright">FREE</div>
             </div>
           </div>
@@ -331,23 +340,75 @@ export default function TokenCreationForm() {
               </label>
             </div>
             <div className="text-right flex-shrink-0">
-              <div className="text-xs text-foreground-muted/50 line-through">0.05 SOL</div>
+              <div className="text-xs text-foreground-muted/50 line-through">0.05 GOR</div>
               <div className="text-sm font-bold text-accent-lime-bright">FREE</div>
             </div>
           </div>
         </div>
 
-        {/* Fee Information */}
-        <div className="bg-dark-green-secondary border border-accent-lime/50 rounded-lg p-4 shadow-lg shadow-accent-lime/10">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-foreground-muted font-semibold">Creation Fee:</span>
-            <span className="text-accent-lime-bright font-bold text-lg">{creationFee} SOL</span>
+        {/* Fee Options */}
+        <div className="space-y-4">
+          <label className="block text-foreground-muted font-semibold mb-3">
+            Choose Your Fee Option
+          </label>
+
+          {/* Option 1: Pay 0.1 GOR */}
+          <div
+            onClick={() => setFeeOption("paid")}
+            className={`cursor-pointer bg-dark-green-secondary border-2 rounded-lg p-5 transition-all hover:border-accent-lime/70 ${
+              feeOption === "paid"
+                ? "border-accent-lime shadow-lg shadow-accent-lime/30"
+                : "border-accent-lime/30"
+            }`}
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <input
+                  type="radio"
+                  id="paidOption"
+                  checked={feeOption === "paid"}
+                  onChange={() => setFeeOption("paid")}
+                  className="w-5 h-5 text-accent-lime bg-dark-green-secondary border-accent-lime/30 focus:ring-accent-lime accent-accent-lime"
+                />
+                <label htmlFor="paidOption" className="cursor-pointer">
+                  <div className="font-bold text-accent-lime text-lg">Pay {creationFee} GOR</div>
+                  <div className="text-sm text-foreground-muted/70">Simple flat fee - Keep 100% of your tokens</div>
+                </label>
+              </div>
+              <div className="text-accent-lime-bright font-bold text-2xl">{creationFee} GOR</div>
+            </div>
           </div>
-          <div className="text-foreground-muted/70 text-sm">
-            <span className="line-through opacity-70">Regular: 0.08 SOL</span>
-            <span className="ml-2 text-accent-lime font-semibold bg-accent-lime/10 px-2 py-1 rounded">
-              Special Offer!
-            </span>
+
+          {/* Option 2: Free with 5% Donation */}
+          <div
+            onClick={() => setFeeOption("donation")}
+            className={`cursor-pointer bg-dark-green-secondary border-2 rounded-lg p-5 transition-all hover:border-accent-lime/70 ${
+              feeOption === "donation"
+                ? "border-accent-lime shadow-lg shadow-accent-lime/30"
+                : "border-accent-lime/30"
+            }`}
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <input
+                  type="radio"
+                  id="donationOption"
+                  checked={feeOption === "donation"}
+                  onChange={() => setFeeOption("donation")}
+                  className="w-5 h-5 text-accent-lime bg-dark-green-secondary border-accent-lime/30 focus:ring-accent-lime accent-accent-lime"
+                />
+                <label htmlFor="donationOption" className="cursor-pointer">
+                  <div className="font-bold text-accent-lime text-lg">
+                    FREE
+                    <span className="ml-2 text-xs bg-accent-lime text-dark-green px-2 py-1 rounded font-bold">
+                      NO FEE
+                    </span>
+                  </div>
+                  <div className="text-sm text-foreground-muted/70">Donate 5% of token supply to service wallet</div>
+                </label>
+              </div>
+              <div className="text-accent-lime-bright font-bold text-2xl">5%</div>
+            </div>
           </div>
         </div>
 
@@ -364,7 +425,11 @@ export default function TokenCreationForm() {
           disabled={isCreating}
           className="w-full bg-accent-lime hover:bg-accent-lime-bright disabled:bg-foreground-muted/30 text-dark-green font-bold py-4 px-6 rounded-lg transition-all shadow-xl shadow-accent-lime/30 disabled:cursor-not-allowed transform hover:scale-[1.02] disabled:hover:scale-100 hover:shadow-accent-lime/50 border-2 border-accent-lime/50 hover:border-accent-lime disabled:border-foreground-muted/20"
         >
-          {isCreating ? "Creating Token..." : `Create Token (${creationFee} SOL)`}
+          {isCreating
+            ? "Creating Token..."
+            : feeOption === "paid"
+            ? `Create Token (${creationFee} GOR)`
+            : `Create Token (FREE - 5% Donation)`}
         </button>
       </form>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { CreatedToken } from "@/types/token";
 
 export default function TokenGallery() {
@@ -75,9 +76,11 @@ export default function TokenGallery() {
             {/* Token Image */}
             {token.metadata.imageUrl && (
               <div className="mb-4 flex justify-center">
-                <img
+                <Image
                   src={token.metadata.imageUrl}
                   alt={token.metadata.name}
+                  width={96}
+                  height={96}
                   className="w-24 h-24 rounded-full border-4 border-accent-lime/50 shadow-lg shadow-accent-lime/20"
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = "none";

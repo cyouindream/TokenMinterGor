@@ -194,7 +194,7 @@ export default function TokenSuccessModal({
               <div className="flex justify-between items-center">
                 <span className="text-accent-lime-bright font-bold text-lg">Change:</span>
                 <span className="text-accent-lime-bright font-bold text-xl">
-                  -{formatSOL(transactionDetails.totalCost)} GOR
+                  -{formatGOR(transactionDetails.totalCost)} GOR
                 </span>
               </div>
             </div>

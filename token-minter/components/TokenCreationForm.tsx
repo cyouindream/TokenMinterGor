@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
+import Image from "next/image";
 import { TokenMetadata, CreatedToken, TransactionDetails } from "@/types/token";
 import { createToken } from "@/lib/tokenService";
 import TokenSuccessModal from "./TokenSuccessModal";
@@ -164,9 +165,11 @@ export default function TokenCreationForm() {
   return (
     <div className="bg-dark-green-transparent backdrop-blur-sm border border-accent-lime/30 rounded-xl p-8 shadow-2xl shadow-accent-lime/10 animate-fade-in hover:border-accent-lime/50 transition-all">
       <div className="flex items-center gap-3 mb-6">
-        <img
+        <Image
           src="https://pub-d3355118e94a463b9a2ae484c8421c1c.r2.dev/GorbaganaIcon.png"
           alt="Gorbagana Logo"
+          width={40}
+          height={40}
           className="w-10 h-10 rounded-full shadow-lg shadow-accent-lime/30"
         />
         <h2 className="text-3xl font-bold text-accent-lime animate-glow">
@@ -283,9 +286,11 @@ export default function TokenCreationForm() {
             />
             {imagePreview && (
               <div className="relative w-32 h-32 rounded-lg overflow-hidden border-2 border-accent-lime/50 shadow-lg shadow-accent-lime/20">
-                <img
+                <Image
                   src={imagePreview}
                   alt="Token icon preview"
+                  width={128}
+                  height={128}
                   className="w-full h-full object-cover"
                 />
               </div>

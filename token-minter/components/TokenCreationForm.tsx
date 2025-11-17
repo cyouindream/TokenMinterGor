@@ -166,7 +166,7 @@ export default function TokenCreationForm() {
     <div className="bg-dark-green-transparent backdrop-blur-sm border border-accent-lime/30 rounded-xl p-8 shadow-2xl shadow-accent-lime/10 animate-fade-in hover:border-accent-lime/50 transition-all">
       <div className="flex items-center gap-3 mb-6">
         <Image
-          src="https://pub-d3355118e94a463b9a2ae484c8421c1c.r2.dev/GorbaganaIcon.png"
+          src="/GorbaganaIcon.png"
           alt="Gorbagana Logo"
           width={40}
           height={40}

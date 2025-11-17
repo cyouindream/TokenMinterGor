@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
+import Image from "next/image";
 import TokenCreationForm from "@/components/TokenCreationForm";
 import TokenGallery from "@/components/TokenGallery";
 import WalletButton from "@/components/WalletButton";
@@ -17,9 +18,11 @@ export default function Home() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="https://pub-d3355118e94a463b9a2ae484c8421c1c.r2.dev/GorbaganaIcon.png"
                 alt="Gorbagana Logo"
+                width={48}
+                height={48}
                 className="w-12 h-12 rounded-full shadow-lg shadow-accent-lime/30"
               />
               <div className="text-3xl font-bold text-accent-lime drop-shadow-lg animate-glow">

@@ -19,7 +19,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Image
-                src="https://pub-d3355118e94a463b9a2ae484c8421c1c.r2.dev/GorbaganaIcon.png"
+                src="/GorbaganaIcon.png"
                 alt="Gorbagana Logo"
                 width={48}
                 height={48}

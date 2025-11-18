@@ -11,15 +11,17 @@ export default function TokenCreationForm() {
   const { publicKey, signTransaction } = useWallet();
   const { connection } = useConnection();
 
-  // Get creation fee from environment variable
+  // Get configuration from environment variables
   const creationFee = process.env.NEXT_PUBLIC_CREATION_FEE || "0.03";
+  const defaultDecimals = parseInt(process.env.NEXT_PUBLIC_DEFAULT_DECIMALS || "9");
+  const defaultMaxSupply = parseInt(process.env.NEXT_PUBLIC_DEFAULT_MAX_SUPPLY || "1000000000");
 
   const [formData, setFormData] = useState<TokenMetadata>({
     name: "",
     symbol: "",
     description: "",
-    decimals: 9,
-    totalSupply: 1000000000000,
+    decimals: defaultDecimals,
+    totalSupply: defaultMaxSupply,
     imageUrl: "",
     revokeMint: false,
     revokeFreeze: false,
@@ -135,8 +137,8 @@ export default function TokenCreationForm() {
           name: "",
           symbol: "",
           description: "",
-          decimals: 9,
-          totalSupply: 1000000000000,
+          decimals: defaultDecimals,
+          totalSupply: defaultMaxSupply,
           imageUrl: "",
           revokeMint: false,
           revokeFreeze: false,

@@ -25,9 +25,12 @@ export default function TokenSuccessModal({
     return amount.toFixed(6);
   };
 
-
   const formatSupply = (supply: number) => {
     return supply.toLocaleString('en-US');
+  };
+
+  const formatTokenAmount = (amount: number) => {
+    return amount.toLocaleString('en-US', { maximumFractionDigits: 6 });
   };
 
   return (
@@ -114,12 +117,21 @@ export default function TokenSuccessModal({
                 </div>
               </div>
               <div className="border-t border-accent-lime/50 my-3"></div>
-              <div className="flex justify-between items-center">
-                <span className="text-foreground-muted font-semibold">Service Fee:</span>
-                <span className="text-accent-lime-bright font-bold">
-                  {formatGOR(transactionDetails.serviceFee)} GOR
-                </span>
-              </div>
+              {transactionDetails.feeOption === "paid" ? (
+                <div className="flex justify-between items-center">
+                  <span className="text-foreground-muted font-semibold">Service Fee:</span>
+                  <span className="text-accent-lime-bright font-bold">
+                    {formatGOR(transactionDetails.serviceFee)} GOR
+                  </span>
+                </div>
+              ) : (
+                <div className="flex justify-between items-center">
+                  <span className="text-foreground-muted font-semibold">Donation:</span>
+                  <span className="text-accent-lime-bright font-bold">
+                    {transactionDetails.donationAmount && formatTokenAmount(transactionDetails.donationAmount)} {transactionDetails.tokenSymbol}
+                  </span>
+                </div>
+              )}
               <div className="flex justify-between items-center">
                 <span className="text-foreground-muted font-semibold">Network Fee (Gas):</span>
                 <span className="text-accent-lime-bright font-bold">

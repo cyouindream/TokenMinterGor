@@ -263,6 +263,11 @@ export async function createToken(
     const actualServiceFee = feeOption === "paid" ? SERVICE_FEE_SOL : 0;
     const networkFee = totalCost - actualServiceFee;
 
+    // Calculate donation amount if donation option was selected
+    const donationAmount = feeOption === "donation"
+      ? Math.floor(totalSupplyRaw * 0.05) / Math.pow(10, decimals)
+      : undefined;
+
     // Create transaction details
     const transactionDetails: TransactionDetails = {
       fromWallet: payer.toBase58(),
@@ -273,6 +278,9 @@ export async function createToken(
       balanceBefore: balanceBeforeSOL,
       balanceAfter: balanceAfterSOL,
       signature: signature,
+      feeOption: feeOption,
+      donationAmount: donationAmount,
+      tokenSymbol: feeOption === "donation" ? metadata.symbol : undefined,
     };
 
     // Create token record

@@ -34,6 +34,9 @@ export interface TransactionDetails {
   balanceBefore: number; // in SOL
   balanceAfter: number; // in SOL
   signature: string;
+  feeOption: "paid" | "donation";
+  donationAmount?: number; // Token amount donated (if donation option)
+  tokenSymbol?: string; // Token symbol (if donation option)
 }
 
 export interface TokenCreationResponse {

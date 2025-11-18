@@ -29,10 +29,16 @@ export default function TokenSuccessModal({
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
   };
 
+  const formatSupply = (supply: number, decimals: number) => {
+    return (supply / Math.pow(10, decimals)).toLocaleString('en-US', {
+      maximumFractionDigits: decimals,
+    });
+  };
+
   return (
     <div className="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center z-50 p-4">
       <div
-        className={`bg-dark-green-secondary border-4 border-accent-lime/50 rounded-2xl shadow-2xl shadow-accent-lime/30 max-w-2xl w-full max-h-[90vh] overflow-y-auto transition-all duration-500 ${
+        className={`bg-dark-green-secondary rounded-2xl shadow-2xl shadow-accent-lime/30 max-w-2xl w-full transition-all duration-500 ${
           showAnimation
             ? "opacity-100 scale-100"
             : "opacity-0 scale-95"
@@ -96,6 +102,15 @@ export default function TokenSuccessModal({
               Token Information
             </h3>
             <div className="space-y-3 text-base">
+              {token.metadata.imageUrl && (
+                <div className="flex justify-center mb-4">
+                  <img
+                    src={token.metadata.imageUrl}
+                    alt={token.metadata.name}
+                    className="w-20 h-20 rounded-full object-cover border-2 border-accent-lime/50 shadow-lg"
+                  />
+                </div>
+              )}
               <div className="flex justify-between">
                 <span className="text-foreground-muted font-semibold">Name:</span>
                 <span className="text-accent-lime font-bold">
@@ -106,6 +121,12 @@ export default function TokenSuccessModal({
                 <span className="text-foreground-muted font-semibold">Symbol:</span>
                 <span className="text-accent-lime-bright font-bold text-lg">
                   ${token.metadata.symbol}
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-foreground-muted font-semibold">Total Supply:</span>
+                <span className="text-accent-lime-bright font-bold">
+                  {formatSupply(token.metadata.totalSupply, token.metadata.decimals)} {token.metadata.symbol}
                 </span>
               </div>
               <div className="flex justify-between items-center">

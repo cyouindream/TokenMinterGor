@@ -26,10 +26,8 @@ export default function TokenSuccessModal({
   };
 
 
-  const formatSupply = (supply: number, decimals: number) => {
-    return (supply / Math.pow(10, decimals)).toLocaleString('en-US', {
-      maximumFractionDigits: decimals,
-    });
+  const formatSupply = (supply: number) => {
+    return supply.toLocaleString('en-US');
   };
 
   return (
@@ -123,7 +121,7 @@ export default function TokenSuccessModal({
               <div className="flex justify-between items-center">
                 <span className="text-foreground-muted font-semibold">Total Supply:</span>
                 <span className="text-accent-lime-bright font-bold">
-                  {formatSupply(token.metadata.totalSupply, token.metadata.decimals)} {token.metadata.symbol}
+                  {formatSupply(token.metadata.totalSupply)} {token.metadata.symbol}
                 </span>
               </div>
               <div>

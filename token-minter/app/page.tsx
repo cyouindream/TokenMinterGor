@@ -43,7 +43,7 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-12">
         {/* Tabs */}
         <div className="flex gap-4 mb-8">
           <button

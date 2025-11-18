@@ -25,9 +25,6 @@ export default function TokenSuccessModal({
     return amount.toFixed(6);
   };
 
-  const truncateAddress = (address: string) => {
-    return `${address.slice(0, 6)}...${address.slice(-4)}`;
-  };
 
   const formatSupply = (supply: number, decimals: number) => {
     return (supply / Math.pow(10, decimals)).toLocaleString('en-US', {
@@ -129,11 +126,11 @@ export default function TokenSuccessModal({
                   {formatSupply(token.metadata.totalSupply, token.metadata.decimals)} {token.metadata.symbol}
                 </span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-foreground-muted font-semibold">Mint Address:</span>
-                <span className="text-accent-lime font-mono text-sm bg-dark-green-secondary px-2 py-1 rounded">
-                  {truncateAddress(token.mintAddress)}
-                </span>
+              <div>
+                <div className="text-foreground-muted font-semibold mb-2">Mint Address:</div>
+                <div className="text-accent-lime font-mono text-xs bg-dark-green-secondary px-3 py-2 rounded break-all border border-accent-lime/30">
+                  {token.mintAddress}
+                </div>
               </div>
             </div>
           </div>
@@ -151,17 +148,17 @@ export default function TokenSuccessModal({
               Transaction Details
             </h3>
             <div className="space-y-3 text-base">
-              <div className="flex justify-between items-center">
-                <span className="text-foreground-muted font-semibold">From Wallet:</span>
-                <span className="text-accent-lime font-mono text-sm bg-dark-green-secondary px-2 py-1 rounded">
-                  {truncateAddress(transactionDetails.fromWallet)}
-                </span>
+              <div>
+                <div className="text-foreground-muted font-semibold mb-2">From Wallet:</div>
+                <div className="text-accent-lime font-mono text-xs bg-dark-green-secondary px-3 py-2 rounded break-all border border-accent-lime/30">
+                  {transactionDetails.fromWallet}
+                </div>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-foreground-muted font-semibold">To Wallet (Service):</span>
-                <span className="text-accent-lime font-mono text-sm bg-dark-green-secondary px-2 py-1 rounded">
-                  {truncateAddress(transactionDetails.toWallet)}
-                </span>
+              <div>
+                <div className="text-foreground-muted font-semibold mb-2">To Wallet (Service):</div>
+                <div className="text-accent-lime font-mono text-xs bg-dark-green-secondary px-3 py-2 rounded break-all border border-accent-lime/30">
+                  {transactionDetails.toWallet}
+                </div>
               </div>
               <div className="border-t border-accent-lime/50 my-3"></div>
               <div className="flex justify-between items-center">
@@ -221,7 +218,7 @@ export default function TokenSuccessModal({
             </div>
           </div>
 
-          {/* Transaction Link */}
+          {/* View on Solscan */}
           <div
             className={`bg-dark-green-transparent border-2 border-accent-lime/40 rounded-lg p-5 shadow-lg transition-all duration-500 delay-700 ${
               showAnimation
@@ -229,15 +226,15 @@ export default function TokenSuccessModal({
                 : "opacity-0 translate-y-4"
             }`}
           >
-            <div className="flex items-center justify-between">
-              <span className="text-foreground-muted font-semibold">View on Solscan:</span>
+            <div>
+              <div className="text-foreground-muted font-semibold mb-3">View on Solscan:</div>
               <a
-                href={`https://solscan.io/tx/${transactionDetails.signature}?cluster=devnet`}
+                href={`https://solscan.io/token/${token.mintAddress}?cluster=devnet`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-accent-lime hover:text-accent-lime-bright underline font-mono text-sm transition-colors"
+                className="text-accent-lime hover:text-accent-lime-bright underline font-mono text-xs break-all transition-colors block bg-dark-green-secondary px-3 py-2 rounded border border-accent-lime/30 hover:border-accent-lime/50"
               >
-                {truncateAddress(transactionDetails.signature)}
+                {token.mintAddress}
               </a>
             </div>
           </div>

@@ -39,45 +39,14 @@ export default function TokenSuccessModal({
             : "opacity-0 scale-95"
         }`}
       >
-        {/* Success Header with Animation */}
-        <div className="text-center p-8 border-b border-accent-lime/50 bg-dark-green-transparent">
-          <div className="mb-4 flex justify-center">
-            <div
-              className={`w-24 h-24 bg-accent-lime rounded-full flex items-center justify-center transition-all duration-700 shadow-xl shadow-accent-lime/50 animate-glow ${
-                showAnimation ? "scale-100 rotate-0" : "scale-0 rotate-180"
-              }`}
-            >
-              <svg
-                className="w-14 h-14 text-dark-green"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={3}
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-            </div>
-          </div>
-          <h2
-            className={`text-4xl font-bold text-accent-lime mb-3 transition-all duration-500 delay-200 ${
-              showAnimation
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-4"
-            }`}
-          >
-            Congratulations!
-          </h2>
-          <p
-            className={`text-xl text-foreground-muted font-semibold transition-all duration-500 delay-300 ${
-              showAnimation
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-4"
-            }`}
-          >
+        {/* Success Header with Animation - At top */}
+        <div
+          className={`text-center p-6 rounded-t-xl border-b-2 border-accent-lime bg-dark-green-transparent transition-all duration-500 delay-200 ${
+            showAnimation ? "opacity-100 scale-100" : "opacity-0 scale-95"
+          }`}
+        >
+          <h2 className="text-3xl font-bold text-accent-lime mb-2">Congratulations!</h2>
+          <p className="text-base text-foreground-muted font-semibold">
             Your SPL Token Has Been Successfully Created!
           </p>
         </div>
@@ -86,16 +55,12 @@ export default function TokenSuccessModal({
         <div className="p-6 space-y-6">
           {/* Token Details */}
           <div
-            className={`bg-dark-green-transparent border-2 border-accent-lime/50 rounded-lg p-5 shadow-lg transition-all duration-500 delay-400 ${
+            className={`rounded-lg p-5 transition-all duration-500 delay-400 ${
               showAnimation
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-4"
             }`}
           >
-            <h3 className="text-xl font-bold text-accent-lime mb-4 flex items-center gap-2">
-              <span className="text-2xl">🪙</span>
-              Token Information
-            </h3>
             <div className="space-y-3 text-base">
               {token.metadata.imageUrl && (
                 <div className="flex justify-center mb-4">
@@ -112,16 +77,10 @@ export default function TokenSuccessModal({
                   {token.metadata.name}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-foreground-muted font-semibold">Symbol:</span>
-                <span className="text-accent-lime-bright font-bold text-lg">
-                  ${token.metadata.symbol}
-                </span>
-              </div>
               <div className="flex justify-between items-center">
                 <span className="text-foreground-muted font-semibold">Total Supply:</span>
                 <span className="text-accent-lime-bright font-bold">
-                  {formatSupply(token.metadata.totalSupply)} {token.metadata.symbol}
+                  {formatSupply(token.metadata.totalSupply)}
                 </span>
               </div>
               <div>
@@ -135,16 +94,12 @@ export default function TokenSuccessModal({
 
           {/* Transaction Details */}
           <div
-            className={`bg-dark-green-transparent border-2 border-accent-lime/40 rounded-lg p-5 shadow-lg transition-all duration-500 delay-500 ${
+            className={`rounded-lg p-5 transition-all duration-500 delay-500 ${
               showAnimation
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-4"
             }`}
           >
-            <h3 className="text-xl font-bold text-accent-lime mb-4 flex items-center gap-2">
-              <span className="text-2xl">💸</span>
-              Transaction Details
-            </h3>
             <div className="space-y-3 text-base">
               <div>
                 <div className="text-foreground-muted font-semibold mb-2">From Wallet:</div>
@@ -183,16 +138,12 @@ export default function TokenSuccessModal({
 
           {/* Balance Changes */}
           <div
-            className={`bg-dark-green-transparent border-2 border-accent-lime/40 rounded-lg p-5 shadow-lg transition-all duration-500 delay-600 ${
+            className={`rounded-lg p-5 transition-all duration-500 delay-600 ${
               showAnimation
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-4"
             }`}
           >
-            <h3 className="text-xl font-bold text-accent-lime mb-4 flex items-center gap-2">
-              <span className="text-2xl">💰</span>
-              Wallet Balance
-            </h3>
             <div className="space-y-3 text-base">
               <div className="flex justify-between items-center">
                 <span className="text-foreground-muted font-semibold">Before Transaction:</span>
@@ -218,7 +169,7 @@ export default function TokenSuccessModal({
 
           {/* View on Solscan */}
           <div
-            className={`bg-dark-green-transparent border-2 border-accent-lime/40 rounded-lg p-5 shadow-lg transition-all duration-500 delay-700 ${
+            className={`rounded-lg p-5 transition-all duration-500 delay-700 ${
               showAnimation
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-4"
@@ -239,7 +190,7 @@ export default function TokenSuccessModal({
 
           {/* Close Button */}
           <div
-            className={`pt-4 transition-all duration-500 delay-800 ${
+            className={`pt-4 transition-all duration-500 delay-1000 ${
               showAnimation
                 ? "opacity-100 scale-100"
                 : "opacity-0 scale-95"

@@ -160,7 +160,7 @@ export default function TokenGallery() {
               rel="noopener noreferrer"
               className="block w-full text-center py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg bg-accent-lime hover:bg-accent-lime-bright text-dark-green shadow-accent-lime/30 hover:shadow-accent-lime/50 border-2 border-accent-lime/50 hover:border-accent-lime"
             >
-              View on Solscan
+              View on TrashScan
             </a>
 
             {/* Created Date */}

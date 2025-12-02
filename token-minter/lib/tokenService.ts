@@ -149,6 +149,18 @@ export async function createToken(
     console.log(`${LOG_PREFIX} Added mint initialization`, { decimals });
 
     // 5. Initialize metadata
+    console.log(`${LOG_PREFIX} Metadata details before initialization`, {
+      name: metadata.name,
+      symbol: metadata.symbol,
+      description: metadata.description,
+      decimals: metadata.decimals,
+      totalSupply: metadata.totalSupply,
+      imageUrl: metadata.imageUrl,
+      imageUrlLength: metadata.imageUrl?.length || 0,
+      revokeMint: metadata.revokeMint,
+      revokeFreeze: metadata.revokeFreeze,
+    });
+
     transaction.add(
       createInitializeInstruction({
         programId: TOKEN_2022_PROGRAM_ID,
@@ -164,6 +176,7 @@ export async function createToken(
     console.log(`${LOG_PREFIX} Added metadata initialization`, {
       name: metadata.name,
       symbol: metadata.symbol,
+      uriSet: metadata.imageUrl ? `✓ ${metadata.imageUrl}` : "✗ Empty",
       hasImageUrl: Boolean(metadata.imageUrl),
     });
 
@@ -310,23 +323,71 @@ export async function createToken(
       lastValidBlockHeight,
     });
 
-    // Confirm transaction
-    const confirmation = await connection.confirmTransaction({
-      signature,
-      blockhash,
-      lastValidBlockHeight,
-    });
+    // Confirm transaction with retry logic
+    let confirmation: any = null;
+    let confirmed = false;
+    const maxRetries = 30; // ~30초 정도 재시도 (1초 간격)
+    let retryCount = 0;
+
+    while (!confirmed && retryCount < maxRetries) {
+      try {
+        confirmation = await connection.confirmTransaction({
+          signature,
+          blockhash,
+          lastValidBlockHeight,
+        });
+        confirmed = true;
+      } catch (confirmError) {
+        // 블록해시 만료 시 최신 블록해시로 재시도
+        if (confirmError instanceof Error && confirmError.message.includes("block height exceeded")) {
+          retryCount++;
+          console.log(`${LOG_PREFIX} Block height exceeded, retrying (attempt ${retryCount}/${maxRetries})`);
+          
+          if (retryCount < maxRetries) {
+            await new Promise(resolve => setTimeout(resolve, 1000)); // 1초 대기
+            // 최신 블록해시 갱신
+            try {
+              const latestBlockhash = await connection.getLatestBlockhash();
+              console.log(`${LOG_PREFIX} Updated blockhash for retry`, {
+                oldBlockhash: blockhash,
+                newBlockhash: latestBlockhash.blockhash,
+              });
+            } catch (hashError) {
+              console.warn(`${LOG_PREFIX} Failed to update blockhash`, hashError);
+            }
+          }
+        } else {
+          throw confirmError;
+        }
+      }
+    }
+
+    if (!confirmed) {
+      console.warn(`${LOG_PREFIX} Confirmation retry exhausted, checking signature status directly`);
+    }
+
     const signatureStatuses = await connection.getSignatureStatuses([signature]);
     const status = signatureStatuses.value[0];
-    console.log(`${LOG_PREFIX} Confirmation response`, {
-      err: confirmation.value.err,
-      slot: confirmation.context.slot,
+    console.log(`${LOG_PREFIX} Signature status response`, {
+      err: confirmation?.value?.err,
+      slot: confirmation?.context?.slot,
       confirmationStatus: status?.confirmationStatus,
       confirmations: status?.confirmations,
+      signatureOk: status?.err === null,
     });
 
-    if (confirmation.value.err) {
-      console.error(`${LOG_PREFIX} Transaction failed`, confirmation.value.err);
+    // 서명 상태 기반으로 성공 판단
+    if (status?.err !== null && status?.err !== undefined) {
+      console.error(`${LOG_PREFIX} Transaction failed`, status?.err);
+      console.error(`${LOG_PREFIX} Full signature status`, status);
+      return {
+        success: false,
+        error: `Transaction failed: ${JSON.stringify(status?.err)}`,
+      };
+    }
+
+    if (confirmation?.value?.err) {
+      console.error(`${LOG_PREFIX} Confirmation error`, confirmation.value.err);
       console.error(`${LOG_PREFIX} Signature status`, status);
       return {
         success: false,

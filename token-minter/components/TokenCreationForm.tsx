@@ -124,11 +124,17 @@ export default function TokenCreationForm() {
     setIsCreating(true);
 
     try {
+      // Ensure imageUrl is included in metadata before sending
+      const metadataToSend = {
+        ...formData,
+        imageUrl: formData.imageUrl || undefined, // Use uploaded image URL if available
+      };
+
       const result = await createToken(
         connection,
         publicKey,
         signTransaction,
-        formData,
+        metadataToSend,
         feeOption
       );
 

@@ -21,6 +21,12 @@ export default function TokenSuccessModal({
     setTimeout(() => setShowAnimation(true), 100);
   }, []);
 
+  const getExplorerUrl = (mintAddress: string, network: string) => {
+    const explorerBaseUrl = process.env.NEXT_PUBLIC_EXPLORER_URL || "https://solscan.io";
+    // Use address path and do not append cluster query string per request
+    return `${explorerBaseUrl}/address/${mintAddress}`;
+  };
+
   const formatGOR = (amount: number) => {
     return amount.toFixed(6);
   };
@@ -179,7 +185,7 @@ export default function TokenSuccessModal({
             </div>
           </div>
 
-          {/* View on Solscan */}
+          {/* View on Explorer */}
           <div
             className={`rounded-lg p-5 transition-all duration-500 delay-700 ${
               showAnimation
@@ -188,9 +194,9 @@ export default function TokenSuccessModal({
             }`}
           >
             <div>
-              <div className="text-foreground-muted font-semibold mb-3">View on Solscan:</div>
+              <div className="text-foreground-muted font-semibold mb-3">View on Explorer:</div>
               <a
-                href={`https://solscan.io/token/${token.mintAddress}?cluster=devnet`}
+                href={getExplorerUrl(token.mintAddress, token.network)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-accent-lime hover:text-accent-lime-bright underline font-mono text-xs break-all transition-colors block bg-dark-green-secondary px-3 py-2 rounded border border-accent-lime/30 hover:border-accent-lime/50"

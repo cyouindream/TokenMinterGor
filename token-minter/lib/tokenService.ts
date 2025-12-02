@@ -316,15 +316,17 @@ export async function createToken(
       blockhash,
       lastValidBlockHeight,
     });
+    const signatureStatuses = await connection.getSignatureStatuses([signature]);
+    const status = signatureStatuses.value[0];
     console.log(`${LOG_PREFIX} Confirmation response`, {
       err: confirmation.value.err,
-      confirmationStatus: confirmation.value.confirmationStatus,
       slot: confirmation.context.slot,
+      confirmationStatus: status?.confirmationStatus,
+      confirmations: status?.confirmations,
     });
 
     if (confirmation.value.err) {
       console.error(`${LOG_PREFIX} Transaction failed`, confirmation.value.err);
-      const [status] = (await connection.getSignatureStatuses([signature])).value;
       console.error(`${LOG_PREFIX} Signature status`, status);
       return {
         success: false,

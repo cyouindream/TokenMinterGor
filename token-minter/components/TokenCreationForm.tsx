@@ -104,6 +104,12 @@ export default function TokenCreationForm() {
       return;
     }
 
+    console.log("[TokenCreationForm] Submitting token creation", {
+      wallet: publicKey.toBase58(),
+      feeOption,
+      metadata: formData,
+    });
+
     // Validate form
     if (!formData.name || !formData.symbol) {
       setError("Please fill in all required fields");
@@ -127,6 +133,10 @@ export default function TokenCreationForm() {
       );
 
       if (result.success && result.token && result.transactionDetails) {
+        console.log("[TokenCreationForm] Token creation succeeded", {
+          token: result.token,
+          transactionDetails: result.transactionDetails,
+        });
         // Store token and transaction details
         setCreatedToken(result.token);
         setTransactionDetails(result.transactionDetails);
@@ -146,6 +156,7 @@ export default function TokenCreationForm() {
         setSelectedFile(null);
         setImagePreview(null);
       } else {
+        console.error("[TokenCreationForm] Token creation failed", result);
         setError(result.error || "Failed to create token");
       }
     } catch (err) {

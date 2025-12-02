@@ -326,7 +326,7 @@ export async function createToken(
     // Confirm transaction with retry logic
     let confirmation: any = null;
     let confirmed = false;
-    const maxRetries = 30; // ~30초 정도 재시도 (1초 간격)
+    const maxRetries = 5; // 재시도 횟수 제한을 5회로 축소 (1초 간격)
     let retryCount = 0;
 
     while (!confirmed && retryCount < maxRetries) {

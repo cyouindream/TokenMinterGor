@@ -32,9 +32,9 @@ export default function TokenGallery() {
   };
 
   const getExplorerUrl = (mintAddress: string, network: string) => {
-    const explorerBaseUrl = process.env.NEXT_PUBLIC_EXPLORER_URL || "https://solscan.io";
-    const cluster = network === "mainnet-beta" ? "" : `?cluster=${network}`;
-    return `${explorerBaseUrl}/token/${mintAddress}${cluster}`;
+    // Normalize base URL and build address path without cluster query
+    const explorerBaseUrl = (process.env.NEXT_PUBLIC_EXPLORER_URL || "https://solscan.io").replace(/\/+$/g, "");
+    return `${explorerBaseUrl}/address/${mintAddress}`;
   };
 
   if (loading) {

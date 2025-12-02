@@ -22,7 +22,7 @@ export default function TokenSuccessModal({
   }, []);
 
   const getExplorerUrl = (mintAddress: string, network: string) => {
-    const explorerBaseUrl = process.env.NEXT_PUBLIC_EXPLORER_URL || "https://solscan.io";
+    const explorerBaseUrl = (process.env.NEXT_PUBLIC_EXPLORER_URL || "https://solscan.io").replace(/\/+$/g, "");
     // Use address path and do not append cluster query string per request
     return `${explorerBaseUrl}/address/${mintAddress}`;
   };
